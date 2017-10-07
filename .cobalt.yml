@@ -1,0 +1,9 @@
+source: ./
+dest: ./build
+posts: blog
+drafts: _drafts
+ignore: ["README.md", "build/*", ".git/*"]
+rss: rss.xml
+name: Ben Yip's Blog
+description: Things about JS, Rust, Mozilla and more!
+link: https://bennyyip.github.io
