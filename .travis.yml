@@ -11,8 +11,15 @@ script:
 after_success: |
   [ $TRAVIS_BRANCH = source ] &&
   [ $TRAVIS_PULL_REQUEST = false ] &&
-  cobalt import --branch master &&
-  git show-ref &&
   git config user.name "BennyYip" &&
-  git config user.email "yebenmy@protonmail.com" &&
-  git push -fq https://${GH_TOKEN}@github.com/bennyyip/bennyyip.github.io.git master
+  git config user.email "yebenmy@protonmail.com"
+
+deploy:
+  github_token: $GH_TOKEN
+  local_dir: ./build/
+  provider: pages
+  skip_cleanup: true
+  target_branch: master
+  on:
+    branch: source
+
