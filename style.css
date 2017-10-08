@@ -86,21 +86,8 @@ body[data-route=about] p {
   margin-right: 20px;
 }
 
-.blog-list li {
-  list-style: none;
-  text-align: center;
-  margin: 20px;
-}
-
-.blog-list li a {
-  font-weight: 200;
-  color: black;
-  font-size: 30px;
-  text-decoration: none;
-}
-
-.blog-list li a:hover {
-  text-decoration: underline;
+.read-more {
+  text-align: right;
 }
 
 article {
@@ -109,6 +96,15 @@ article {
 
 article p {
   text-indent: 2em;
+}
+
+article a:link {
+  color: #000;
+  text-decoration: underline;
+}
+
+article a:visited {
+  color: #555;
 }
 
 footer {
@@ -166,7 +162,7 @@ hr {
     font-size: 40px;
   }
   main {
-    padding: 20px 40px;
+    padding: 20px 0 20px 40px;
   }
 }
 

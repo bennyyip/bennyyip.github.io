@@ -4,10 +4,11 @@ title: Ben Yip's Notes
 route: blog
 ---
 
-<ul class="blog-list">
-  {% for post in posts %}
-    <li>
-      <a href="{{ post.path }}">{{ post.title }}</a>
-    </li>
-  {% endfor %}
-</ul>
+{% for post in posts %}
+  <article>
+    <h1><a href="{{ post.path }}">{{ post.title }}</a></h1>
+    {%  assign content = post.content | split: "<hr />"  %}
+    <p> {{ content | first  }}</p>
+    <div class="read-more"> <a href="{{ post.path }} ">Read More...</a> </div>
+  </article>
+{% endfor %}
