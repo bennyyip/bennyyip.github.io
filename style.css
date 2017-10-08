@@ -9,12 +9,17 @@ body {
   padding: 0;
 }
 
+img {
+  max-width: 100%;
+}
+
+
 pre {
   font: 14px "Courier New", Monaco, monospace;
-  text-indent: 0px;
-  background-color: white;
-  padding: 1ch;
-  border: none;
+  overflow-x: auto;
+  background: #1d1f21;
+  display: block;
+  padding: 0.5em;
 }
 
 time {
