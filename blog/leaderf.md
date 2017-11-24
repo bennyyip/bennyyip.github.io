@@ -38,8 +38,8 @@ GitHub Stars，顧名思義，用來在瀏覽器中打開你在 GitHub star 過�
 
 ![leaderf gruvbox](/img/leaderf-gruvbox.png) 
 
-  [1]: https://github.com/Yggdroot/Images/blob/master/leaderf/leaderf_1.gif
-  [2]: https://github.com/Yggdroot/Images/blob/master/leaderf/leaderf_2.gif
+  [1]: https://raw.githubusercontent.com/Yggdroot/Images/master/leaderf/leaderf_1.gif
+  [2]: https://raw.githubusercontent.com/Yggdroot/Images/master/leaderf/leaderf_2.gif
   [3]: https://github.com/Yggdroot/LeaderF
   [4]: https://github.com/Yggdroot/LeaderF-marks
   [5]: https://github.com/bennyyip/LeaderF-github-stars
