@@ -1,0 +1,25 @@
+# Build options
+source: ./
+template_extensions:
+  - md
+  - liquid
+include_drafts: false
+ignore: ["README.md", "build/*", ".git/*"]
+destination: ./build
+
+# rss: rss.xml
+# name: Ben Yip's Blog
+# link: https://bennyyip.github.io
+
+posts:
+  title: ~
+  description: ~
+  dir: blog
+  drafts_dir: _drafts
+  order: Desc
+  rss: ~
+  jsonfeed: ~
+  default: {}
+
+syntax_highlight:
+  theme: "base16-ocean.light"
