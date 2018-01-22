@@ -1,11 +1,9 @@
-extends: post.liquid
-
-title:   Linux 初體驗及中州韻配置小記
-date:    10 Feb 2017 00:20:47 +0800
-route:   blog
+title: Linux 初體驗及中州韻配置小記
+published_date: "2017-02-10 00:20:47 +0800"
+layout: post.liquid
+data:
+  route: blog
 ---
-
-
 # 緣起
 近期打算遷移至 Arch Linux， 在虛擬機器體驗了幾天，等開學之後配部桌上型電腦再正式叛逃過去。 
 在這幾天裡，我試用了相當數目的新軟體(vim之類的早在用的就不說了），在這裡列個清單備忘 

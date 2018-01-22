@@ -1,10 +1,9 @@
-extends: post.liquid
-
-title:   Happy Hacking
-date:    13 May 2016 21:47:20 +0800
-route:   blog
+title: Happy Hacking
+published_date: "2016-05-13 21:47:20 +0800"
+layout: post.liquid
+data:
+  route: blog
 ---
-
 # 为什么写 blog?
 
 让发生过的事情留下些痕迹，作为成长的记录。

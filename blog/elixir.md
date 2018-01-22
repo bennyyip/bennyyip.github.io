@@ -1,13 +1,15 @@
-extends: post.liquid
-
-title:   试水 Elixir
-date:    22 Jan 2018 01:02:52 +0800
-route:   blog
+title: 试水 Elixir
+published_date: "2018-01-22 01:02:52 +0800"
+layout: post.liquid
+data:
+  route: blog
 ---
 # Why Elixir Rocks
 我这个星期接触了 Elixir，遇到蛮多有趣的东西，于是写 blog 分享下。官方的介绍如下：
 > Elixir is a dynamic, functional language designed for building scalable and maintainable applications.
 要用一句话概括这语言给我的感觉就是：「皮是 Ruby, 肉是 Erlang, 骨是 Lisp」。
+
+---
 
 ### Macro x Metaprogramming x DSL
 讲 macro 之前项讲讲 AST。Elixir 的 AST 非常简单，要么是 literals（Atom, String, List, Number, Tuple with 2 element），要么是这样的`tuple`：

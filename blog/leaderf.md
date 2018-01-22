@@ -1,17 +1,17 @@
-extends: post.liquid
-
-title:   安利 LeaderF
-date:    24 Nov 2017 22:49:25 +0800
-route:   blog
+title: 安利 LeaderF
+published_date: "2017-11-24 22:49:25 +0800"
+layout: post.liquid
+data:
+  route: blog
 ---
-
-
 # LeaderF 是什麼
 [LeaderF][3] 是一個用於模糊搜索的 Vim 插件（fuzzy finder），可以用來找文件、打開的 buffer、最近打開的文件（MRU）等等。甚至，你可以給它寫拓展，找你想找的東西（我寫過兩個 LeaderF 插件，後面會提到）。
 
 ![NameOnly Mode][1]
 
 ![FullPath Mode][2]
+
+---
 
 # 爲什麼是 LeaderF
 其實同類的 Vim 插件很多，光我用過的就有 CtrlP，Denite，fzf，它們各有各的缺點：
@@ -24,7 +24,7 @@ route:   blog
 - LeaderF 提供了 C 的 fuzz match 算法，可以用來替換原來用 Python 寫的版本。儘管 Python 版本已經非常快了，作者宣稱有 10 倍的提速。
 - 使用緩存。只有第一次查詢的時候會取獲取數據，後續都只是返回緩存好的數據，除非按 F5 讓它刷新數據。
 - 拓展性好，寫拓展相當方便。
-- 同時支持 regex 和 fuzz 兩種模式。
+- 同時支持 regex 和 fuzz 兩種模式。 
 
 # 拓展
 LeaderF 的作者提供了一個拓展的例子 [LeaderF-marks][4]，是一個跳轉到 mark 的插件。

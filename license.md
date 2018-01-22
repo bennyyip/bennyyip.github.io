@@ -1,9 +1,9 @@
-extends: default.liquid
-
-title: bennyyip.github.io - License
-path:  license/
+permalink: /license/
+title: "bennyyip.github.io - License"
+data:
+  route: license
+layout: default.liquid
 ---
-
 # License Information
 
 Copyright 2017 Ben Yip.

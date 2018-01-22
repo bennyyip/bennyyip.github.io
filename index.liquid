@@ -1,14 +1,12 @@
-extends: default.liquid
-
-title: Ben Yip's Notes
-route: blog
+title: "外部記憶永不眠"
+layout: default.liquid
+data:
+  route: blog
 ---
-
-{% for post in posts %}
+{% for post in collections.posts.pages %}
   <article>
-    <h1><a href="{{ post.path }}">{{ post.title }}</a></h1>
-    {%  assign content = post.content | split: "<hr />"  %}
-    <p> {{ content | first  }}</p>
-    <div class="read-more"> <a href="{{ post.path }} ">Read More...</a> </div>
+    <h1><a href="{{ post.permalink }}">{{ post.title }}</a></h1>
+    <p> {{post.content | split: "<hr />" | first}} </p>
+    <div class="read-more"> <a href="{{ post.permalink }} ">Read More...</a> </div>
   </article>
 {% endfor %}

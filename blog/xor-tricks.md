@@ -1,10 +1,9 @@
-extends: post.liquid
-
-title:   关于异或运算的一些 tricks
-date:    19 Aug 2016 23:02:52 +0800
-route:   blog
+title: 关于异或运算的一些 tricks
+published_date: "2016-08-19 23:02:52 +0800"
+layout: post.liquid
+data:
+  route: blog
 ---
-
 # 异或运算的一些性质
 - 交换律：`a ^ b = b ^ a`
 - 结合律：`a ^ (b ^ c) = b ^ c`
