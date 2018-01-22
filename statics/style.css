@@ -14,8 +14,12 @@ img {
 }
 
 
-pre {
+.hljs {
+  background-color: #f7f7f7;
   font: 14px "Source Code Pro", "Consolas", Menlo, Monaco, "Courier New", monospace;
+}
+
+pre {
   overflow-x: auto;
   display: block;
   padding: 0.5em;

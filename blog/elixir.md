@@ -4,16 +4,15 @@ layout: post.liquid
 data:
   route: blog
 ---
-# Why Elixir Rocks
 我这个星期接触了 Elixir，遇到蛮多有趣的东西，于是写 blog 分享下。官方的介绍如下：
-> Elixir is a dynamic, functional language designed for building scalable and maintainable applications. 
+> Elixir is a dynamic, functional language designed for building scalable and maintainable applications.
 
 要用一句话概括这语言给我的感觉就是：「皮是 Ruby, 肉是 Erlang, 骨是 Lisp」。
 
 ---
-
+# Why Elixir Rocks
 ### Macro x Metaprogramming x DSL
-讲 macro 之前项讲讲 AST。Elixir 的 AST 非常简单，要么是 literals（Atom, String, List, Number, Tuple with 2 element），要么是这样的`tuple`：
+讲 macro 之前先讲讲 AST。Elixir 的 AST 非常简单，要么是 literals（Atom, String, List, Number, Tuple with 2 element），要么是这样的`tuple`：
 ```elixir
 {atom | tuple, list, list | atom}
 ```
@@ -33,6 +32,7 @@ baz |> bar(meow) |> foo
 ```
 
 而所谓 metaprogramming 就是写生成代码的代码。macro 提供了把代码当数据处理的能力，于是乎可以用来做元编程。
+
 元编程可以用来在语言里造 [Domain-specific languages (DSL)](https://en.wikipedia.org/wiki/Domain-specific_language) 来生成 boilerplate 代码，于是就可以写出这样的代码：
 
 ```elixir
@@ -52,7 +52,9 @@ ecto 是用来操作数据库的库，它提供了类似 SQL 的 DSL。`query`�
 另外 Elixir 的 macro 是 hygienic 的，不像 C 的基于字符替换的宏，会污染调用方的 namespace。但是它也提供了 var! 来打破这个 hygiene，从而往调用方的塞变量。
 
 ### Pattern Matching
-Elixir 到处都是 pattern matching，实际上`=`是 match 操作符。Rust 里面同样有 pattern matching，但是功能不如 Elixir 的强大。在 Rust 里我们通常用它来 match enum(tagged union)，`std::Result`就是一个好例子。elixr 这边还能 match 很多 Rust 不能 match 的类型，比如 list（Rust 的 slice pattern 还是 experimental)：
+Elixir 到处都是 pattern matching，实际上`=`是 match 操作符。Rust 里面同样有 pattern matching，但是功能不如 Elixir 的强大。 在 Rust 里我们通常用它来 match enum(tagged union)，`std::Result`就是一个好例子。
+
+Elixr 这边还能 match 很多 Rust 不能 match 的类型，比如 list（Rust 的 slice pattern 还是 experimental)：
 ```elixir
 iex> [head | tail] = [1, 2, 3]
 [1, 2, 3]
@@ -148,15 +150,19 @@ end
 
 ### Erlang/OTP
 Elixir 是 Erlang VM 上的语言，自然是要跟 OTP 打交道的。但是 OTP 是什么？
-> OTP (Open Telecom Platform) is a set of libraries that ships with Erlang. Erlang developers use OTP to build robust, fault-tolerant applications. 
+> OTP (Open Telecom Platform) is a set of libraries that ships with Erlang. Erlang developers use OTP to build robust, fault-tolerant applications.
+
 事实上很大程度上我用 Elixir 就是因为 Erlang/OTP，否则语言设计得再妙，没了 Erlang VM 的支撑我大概也不会去尝试。Erlang 提供了有如操作系统一般的 VM，对于分布式 / 并发的问题有非常独到的解决方法。而 Erlang 略显鬼畜的语法是我迟迟没有去接触它的原因，Elixir 让我有机会这一窥究竟。
+
 这一部分我理解还是比较浅薄，而且 Erlang/OTP 确实比较复杂，推荐读陈天写的[介绍文章](https://zhuanlan.zhihu.com/p/26341437)。
 
 
 ### Mix
 8102 年了，各种语言基本都把好用的构建工具和编译器一起 ship。mix 提供了**创建项目，包管理，编译，测试，文档，格式化代码**一条龙服务。
-而且它是 extensible，用户可以自定义 task。下面提到的 linter 就是自定义的 task。 
-P.S. 我蛮喜欢 mix 这个名字，因为 Elixir 是炼金术术语，意思是万能药，mix 像是混合试剂的意思。
+
+而且它是 extensible，用户可以自定义 task。下面提到的 linter 就是自定义的 task。
+
+P.S. 我蛮喜欢 mix 这个名字，因为 Elixir 是炼金术术语，意思是万能药。这个语境下，mix 像是混合试剂的意思。
 
 # 开发环境配置
 ### 安装编译器以及文档：
@@ -171,7 +177,7 @@ mix hex.doc open PACKAGE [VERSION]
 ```
 
 ### 装 Vim 插件：
-```VimL
+```Vim Script
 Plug 'elixir-editors/vim-elixir'                    "语法高亮，缩进规则
 Plug 'mhinz/vim-mix-format', { 'for': 'elixir' }    "格式化代码，需要 elixir1.6
 Plug 'slashmili/alchemist.vim', { 'for': 'elixir' } "补全及跳转
