@@ -11,7 +11,7 @@ cache: cargo
 sudo: false
 
 before_script:
-  - cargo install cobalt-bin
+  - cargo install cobalt-bin --force
   - export PATH="$PATH:/home/travis/.cargo/bin"
 
 script:
