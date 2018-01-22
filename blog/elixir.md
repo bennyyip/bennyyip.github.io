@@ -6,7 +6,8 @@ data:
 ---
 # Why Elixir Rocks
 我这个星期接触了 Elixir，遇到蛮多有趣的东西，于是写 blog 分享下。官方的介绍如下：
-> Elixir is a dynamic, functional language designed for building scalable and maintainable applications.
+> Elixir is a dynamic, functional language designed for building scalable and maintainable applications. 
+
 要用一句话概括这语言给我的感觉就是：「皮是 Ruby, 肉是 Erlang, 骨是 Lisp」。
 
 ---
@@ -147,14 +148,14 @@ end
 
 ### Erlang/OTP
 Elixir 是 Erlang VM 上的语言，自然是要跟 OTP 打交道的。但是 OTP 是什么？
-> OTP (Open Telecom Platform) is a set of libraries that ships with Erlang. Erlang developers use OTP to build robust, fault-tolerant applications.
+> OTP (Open Telecom Platform) is a set of libraries that ships with Erlang. Erlang developers use OTP to build robust, fault-tolerant applications. 
 事实上很大程度上我用 Elixir 就是因为 Erlang/OTP，否则语言设计得再妙，没了 Erlang VM 的支撑我大概也不会去尝试。Erlang 提供了有如操作系统一般的 VM，对于分布式 / 并发的问题有非常独到的解决方法。而 Erlang 略显鬼畜的语法是我迟迟没有去接触它的原因，Elixir 让我有机会这一窥究竟。
 这一部分我理解还是比较浅薄，而且 Erlang/OTP 确实比较复杂，推荐读陈天写的[介绍文章](https://zhuanlan.zhihu.com/p/26341437)。
 
 
 ### Mix
 8102 年了，各种语言基本都把好用的构建工具和编译器一起 ship。mix 提供了**创建项目，包管理，编译，测试，文档，格式化代码**一条龙服务。
-而且它是 extensible，用户可以自定义 task。下面提到的 linter 就是自定义的 task。
+而且它是 extensible，用户可以自定义 task。下面提到的 linter 就是自定义的 task。 
 P.S. 我蛮喜欢 mix 这个名字，因为 Elixir 是炼金术术语，意思是万能药，mix 像是混合试剂的意思。
 
 # 开发环境配置
