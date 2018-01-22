@@ -17,7 +17,6 @@ img {
 pre {
   font: 14px "Source Code Pro", "Consolas", Menlo, Monaco, "Courier New", monospace;
   overflow-x: auto;
-  background: #1d1f21;
   display: block;
   padding: 0.5em;
 }
