@@ -1,6 +1,5 @@
 body{
-  font: 16px/1.6 "PingFang TC", "Hiragino Sans GB", "Noto Sans CJK TC", "Source Han Sans TC", "Microsoft JhengHei UI", "Microsoft JhengHei", sans-serif;
-  color: #000;
+  font: 18px "PingFang TC", "Hiragino Sans GB", "Noto Sans CJK TC", "Source Han Sans TC", "Microsoft JhengHei UI", "Microsoft JhengHei", sans-serif;
 }
 
 html,
@@ -13,16 +12,26 @@ img {
   max-width: 100%;
 }
 
-
 .hljs {
-  background-color: #f7f7f7;
-  font: 14px "Source Code Pro", "Consolas", Menlo, Monaco, "Courier New", monospace;
+  background-color: #fff;
+  font: .85rem "Source Code Pro", "Consolas", Menlo, Monaco, "Courier New", monospace;
+  border: 1px solid #7a7a7a;
 }
 
 pre {
   overflow-x: auto;
   display: block;
   padding: 0.5em;
+}
+
+p code {
+  background-color: #fff;
+  padding: 2px;
+  border: 1px dotted #7a7a7a;
+}
+
+p {
+  margin-bottom: 1.5em;
 }
 
 time {
@@ -95,10 +104,6 @@ body[data-route=about] p {
 
 article {
   margin-top: 50px;
-}
-
-article p {
-  text-indent: 2em;
 }
 
 article a:link {
@@ -213,3 +218,5 @@ hr {
 }
 
 /* close commented backslash hack */
+
+

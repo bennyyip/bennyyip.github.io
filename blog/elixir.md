@@ -12,18 +12,18 @@ data:
 ---
 # Why Elixir Rocks
 ### Macro x Metaprogramming x DSL
-讲 macro 之前先讲讲 AST。Elixir 的 AST 非常简单，要么是 literals（Atom, String, List, Number, Tuple with 2 element），要么是这样的`tuple`：
+讲 macro 之前先讲讲 AST。Elixir 的 AST 非常简单，要么是 literals（Atom, String, List, Number, Tuple with 2 element），要么是这样的 `tuple`：
 ```elixir
 {atom | tuple, list, list | atom}
 ```
-- 第一部分是`atom`或者另外一个这样的`tuple`
+- 第一部分是 `atom` 或者另外一个这样的 `tuple`
 - 第二部分是 metadata，一个 keyword list
-- 第三部分要么是函数的参数列表，要么是一个`atom`。如果是`atom`表明这个 tuple 是个变量。
+- 第三部分要么是函数的参数列表，要么是一个 `atom`。如果是 `atom` 表明这个 tuple 是个变量。
 
-Elixir 提供了`quote/unquote`（类似 lisp 里的`quasiquote / unquote`)，quote 一个表达式即可得到它的 AST(Abstract Syntax Tree)。
+Elixir 提供了 `quote/unquote`（类似 lisp 里的 `quasiquote / unquote` )，quote 一个表达式即可得到它的 AST(Abstract Syntax Tree)。
 所谓 macro 就是接受 AST 返回 AST 的函数，这样形式简单的 AST 给 macro 的编写带来了方便。
 Elixir 只有少数几个 [Sepcial Forms](https://hexdocs.pm/elixir/Kernel.SpecialForms.html), 表面那些像 Ruby 的语法基本上都是用 macro 造出来的，这一点很像 Lisp。
-`if/else`是宏，`defstruct`是宏，`|>`管道运算符也是一个宏，它用起来是这样的：
+`if/else` 是宏，`defstruct` 是宏，`|>` 管道运算符也是一个宏，它用起来是这样的：
 ``` elixir
 # without |>
 foo(bar(baz, meow))
@@ -47,12 +47,12 @@ query = from u in "users",
 # Send the query to the repository
 Repo.all(query)
 ```
-ecto 是用来操作数据库的库，它提供了类似 SQL 的 DSL。`query`通过宏展开最后变成了一个 Elixir 的函数。
+ecto 是用来操作数据库的库，它提供了类似 SQL 的 DSL。`query` 通过宏展开最后变成了一个 Elixir 的函数。
 
 另外 Elixir 的 macro 是 hygienic 的，不像 C 的基于字符替换的宏，会污染调用方的 namespace。但是它也提供了 var! 来打破这个 hygiene，从而往调用方的塞变量。
 
 ### Pattern Matching
-Elixir 到处都是 pattern matching，实际上`=`是 match 操作符。Rust 里面同样有 pattern matching，但是功能不如 Elixir 的强大。 在 Rust 里我们通常用它来 match enum(tagged union)，`std::Result`就是一个好例子。
+Elixir 到处都是 pattern matching，实际上 `=` 是 match 操作符。Rust 里面同样有 pattern matching，但是功能不如 Elixir 的强大。 在 Rust 里我们通常用它来 match enum(tagged union)，`std::Result`就是一个好例子。
 
 Elixr 这边还能 match 很多 Rust 不能 match 的类型，比如 list（Rust 的 slice pattern 还是 experimental)：
 ```elixir
@@ -136,8 +136,8 @@ or
     end
   end
 ```
-上面是`Router`核心的代码，`Poller`收到消息就调用`do_match_message`对其进行处理。
-这个库把用户提供的`command`和`bot_name`来重载`do_match_message`函数，对`update`做 pattern matching，从而把消息 route 到相应的 handler。
+上面是 `Router` 核心的代码，`Poller` 收到消息就调用 `do_match_message` 对其进行处理。
+这个库把用户提供的 `command` 和 `bot_name` 来重载 `do_match_message` 函数，对 `update` 做 pattern matching，从而把消息 route 到相应的 handler。
 用 macro 包装一下，用户需要写的代码就成了这样，减少了大量 boilerplate ：
 ```Elixir
   command ["hello", "hi"] do
@@ -169,8 +169,8 @@ P.S. 我蛮喜欢 mix 这个名字，因为 Elixir 是炼金术术语，意思�
 ```bash
 pacman -S elixir elixir-docs
 ```
-`elixir`主要包含了编译器 (`elixirc`), REPL(`iex`) 以及构建工具 (`mix`).
-`elixir-docs`在`archlinuxcn`源里（我打的包），包含了 Elixir 自带的库以及工具链的文档。
+`elixir` 主要包含了编译器 ( `elixirc` ), REPL( `iex` ) 以及构建工具 ( `mix` ).
+`elixir-docs` 在`archlinuxcn`源里（我打的包），包含了 Elixir 自带的库以及工具链的文档。
 第三方库可以到 [hexdocs](https://hexdocs.pm) 查，或者用
 ```bash
 mix hex.doc open PACKAGE [VERSION]
@@ -195,7 +195,7 @@ end
 ```
 
 ### 其它
-Elixir 的包托管在 [hex](https://hex.pm)，由于众所周知的问题，在中国大陆访问速度很慢。请心里默念「FUCK GFW」并在`~/.hex/hex.config`加一行代理：
+Elixir 的包托管在 [hex](https://hex.pm)，由于众所周知的问题，在中国大陆访问速度很慢。请心里默念「FUCK GFW」并在 `~/.hex/hex.config` 加一行代理：
 ```elixir
 {http_proxy,«"http://127.0.0.1:1081"»}.
 ```
