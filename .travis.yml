@@ -6,12 +6,14 @@ rust:
     #- beta
     #- nightly
 
-cache: cargo
+cache:
+  directories:
+    - $HOME/.cargo
 
 sudo: false
 
 before_script:
-  - cargo install cobalt-bin --force
+  - cargo install cobalt-bin
   - export PATH="$PATH:/home/travis/.cargo/bin"
 
 script:
