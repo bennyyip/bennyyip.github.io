@@ -107,12 +107,17 @@ article {
 }
 
 article a:link {
+  /* color: #3873AD; */
   color: #000;
   text-decoration: underline;
 }
 
 article a:visited {
-  color: #555;
+  color: #000;
+}
+
+article a:hover{
+  text-decoration: none;
 }
 
 footer {
@@ -219,4 +224,8 @@ hr {
 
 /* close commented backslash hack */
 
+
+blockquote {
+  font-style: italic;
+}
 

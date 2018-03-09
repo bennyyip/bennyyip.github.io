@@ -27,8 +27,6 @@ ignore:
   - README.md
   - "build/*"
   - ".git/*"
-syntax_highlight:
-  theme: "base16-eighties.dark"
 assets:
   sass:
     style: Nested
