@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Linux 初體驗及中州韻配置小記</title>
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<link rel="stylesheet" href="/statics/highlight/github.css" type="text/css" media="all" />
+<link rel="stylesheet" href="/statics/style.css" type="text/css" media="all" />
+<link rel="alternate" href="/rss.xml" type="application/rss+xml" title="RSS" />
+
+
+<link rel="icon" sizes="192x192" href="/favicon.png">
+
+
+<script>
+(function(u, c) {
+  var d = document, t = 'script', o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+  o.src = u;
+  if (c) { o.addEventListener('load', function(e) { c(e); }); }
+  s.parentNode.insertBefore(o, s);
+})('//cdn.bootcss.com/pangu/3.3.0/pangu.min.js', function() {
+  pangu.spacingPage();
+});
+</script>
+
+<script src="/statics/highlight.pack.js"></script>
+<script type="text/javascript">hljs.initHighlightingOnLoad();</script>
+
+  </head>
+<body data-route=blog>
+  <nav class="menu">
+  <a class="menu-item " href="/about/">About</a>
+  <a class="menu-item current" href="/">Blog</a>
+  <a class="menu-item icon" href="http://github.com/bennyyip"><i class="fa fa-github-square"></i></a>
+  <a class="menu-item icon" href="http://twitter.com/__benyip"><i class="fa fa-twitter-square"></i></a>
+  <a class="menu-item icon" href="/rss.xml"><i class="fa fa-rss-square"></i></a>
+  <hr>
+</nav>
+
+  <main>
+    <article>
+      <h1>Linux 初體驗及中州韻配置小記</h1>
+      <time pubdate="pubdate">Feb 10, 2017</time>
+      <h1>緣起</h1>
+<p>近期打算遷移至 Arch Linux， 在虛擬機器體驗了幾天，等開學之後配部桌上型電腦再正式叛逃過去。
+在這幾天裡，我試用了相當數目的新軟體(vim之類的早在用的就不說了），在這裡列個清單備忘</p>
+
+<ul>
+<li>urxvt：終端仿真器</li>
+<li>tmux：終端復用器</li>
+<li>moc：音訊播放器</li>
+<li>music box：網易雲終端版</li>
+<li>i3：window manager</li>
+<li>conky：kickass system monitor</li>
+<li>feh：圖片瀏覽器</li>
+<li>zathura：vi-like PDF reader</li>
+<li>dmenu：launcher</li>
+<li>中州韻（Rime）：中文輸入法</li>
+<li>ydcv：Yaodao Dictionary Console Version</li>
+<li>stow：使用符號連結（symbolic link）管理軟體包的工具，我主要用它和 git 一起管理配置檔案。</li>
+</ul>
+<p>上訴大部分軟體都是沒有 GUI 的，活在終端的感覺真好。</p>
+<p>高中時曾在 Windows 7 下短暫使用過一陣時間的 Rime，但是由於對 dota 2 支援不好<del>垃圾 dead game</del>，沒繼續用下去。
+後來到了 Windows 10 在 modern app 下無法使用，漸漸將它遺忘。<br />
+講真，Rime 是我在 PC 上用過最爽的輸入法，如果你沒試過而且在使用 Linux 或者 macOS，請務必試試中州韻/鼠鬚管（Rime 在這兩個平臺上的中文名）。<br />
+我這次更新網誌的動機很大程度上是因爲中州韻打字實在太爽快了XD</p>
+<h1>中州韻的安裝及配置</h1>
+<p>事不宜遲，我們現在就切入正題
+我選擇使用 <code>fcitx-rime</code> 這個包，原因是我認識的 Linux 用家裡用 fcitx 的比 ibus 多，我相信他們的選擇。</p>
+<pre><code class="language-bash">sudo yaourt -S fcitx fcitx-im fcitx-configtool fcitx-rime
+</code></pre>
+<p>其中 fcitx-configtool 是 fcitx 的 GUI 配置工具。安裝好之後需要通過它用中州韻。</p>
+<p>首先中州韻的自帶詞庫不夠豐富，我找來了官方提供的一份詞庫（https://github.com/rime-aca/dictionaries ）<br />
+按照 README.md 的說明，<code>luna_pinyin.dict</code> 資料夾下的所有檔案複製到配置目錄（~/.config/fcitx/rime/)，然後再做後續的配置。</p>
+<p>需要配置的檔案有以下三個：</p>
+<ul>
+<li><code>double_pinyin_flypy.custom.yaml</code></li>
+<li><code>default.custom.yaml</code></li>
+<li><code>luna_pinyin.extended.yaml</code></li>
+</ul>
+<pre><code class="language-yaml"># luna_pinyin.extended.yaml 
+
+---
+name: luna_pinyin.extended
+version: &quot;2015.12.02&quot;
+sort: by_weight
+use_preset_vocabulary: true
+#此處爲明月拼音擴充詞庫（基本）默認鏈接載入的詞庫，有朙月拼音官方詞庫、明月拼音擴充詞庫（漢語大詞典）、
+#明月拼音擴充詞庫（詩詞）、明月拼音擴充詞庫（含西文的詞彙）。如果不需要加載某个詞庫請將其用「#」註釋掉。
+#雙拼不支持 luna_pinyin.cn_en 詞庫，請用戶手動禁用。
+import_tables:
+  - luna_pinyin
+  - luna_pinyin.hanyu
+  - luna_pinyin.poetry
+  # - luna_pinyin.cn_en
+...
+</code></pre>
+<p>雙拼用家可以將上面的個檔案的 <code>luna_pinyin.cn_en</code> 一行註釋掉。</p>
+<pre><code class="language-yaml"># double_pinyin_flypy.custom.yaml
+
+patch: 
+  # 雙拼碼不轉換成全拼碼 
+  &quot;translator/preedit_format&quot;: {}
+  # 載入朙月拼音擴充詞庫
+  &quot;translator/dictionary&quot;: luna_pinyin.extended
+</code></pre>
+<pre><code class="language-yaml"># default.custom.yaml 
+
+patch:
+  schema_list:
+    - schema: double_pinyin_flypy
+
+  ascii_composer:
+    switch_key:
+      Shift_L: noop
+      Shift_R: commit_code
+
+  key_binder:
+    bindings:
+      - { when: has_menu, accept: Shift_L,  send: 2 }
+      - { when: has_menu, accept: Control_R, send: 3 }
+      - { when: has_menu, accept: equal, send: Page_Down }
+      - { when: has_menu, accept: minus, send: Page_Up }
+
+</code></pre>
+<p>我討厭使用左 shift 切換中英文（因爲常常誤觸），於是把它禁用掉了，換成右 shift。<br />
+這也是我喜歡 Rime 的一大原因，它提供了大量的配置選項，你可以把它調教成你喜歡的樣子。
+我用過的大部分輸入法都不能設定成只用右 shift 切換中英文。<br />
+另外，我將左 shift、右 ctrl 分別設定成上屏第二、三個候選詞，較爲方便。
+未來可能把結合輔碼，將每頁候選詞減少到三個。</p>
+<h1>For Vim User</h1>
+<p>這篇網誌是在 Vim 中完成的，我抄了下面的一段程式碼到我的 Vim 配置裡。它實現了進入普通模式自動切換成無輸入法的狀態，而在插入模式保持著上一次進入普通模式前的狀態。</p>
+<pre><code class="language-Vim">&quot;##### auto fcitx  ###########
+let g:input_toggle = 0
+function! Fcitx2en()
+   let s:input_status = system(&quot;fcitx-remote&quot;)
+   if s:input_status == 2
+      let g:input_toggle = 1
+      let l:a = system(&quot;fcitx-remote -c&quot;)
+   endif
+endfunction
+
+function! Fcitx2zh()
+   let s:input_status = system(&quot;fcitx-remote&quot;)
+   if s:input_status != 2 &amp;&amp; g:input_toggle == 1
+      let l:a = system(&quot;fcitx-remote -o&quot;)
+      let g:input_toggle = 0
+   endif
+endfunction
+
+set ttimeoutlen=150
+&quot;退出插入模式
+autocmd InsertLeave * call Fcitx2en()
+&quot;進入插入模式
+autocmd InsertEnter * call Fcitx2zh()
+&quot;##### auto fcitx end ######
+</code></pre>
+
+    </article>
+  </main>
+  <footer>
+  <hr>
+  <p>
+    <a href="/license/">CC BY-SA 4.0 / MIT</a>
+    -
+    <a href="https://github.com/cobalt-org/cobalt.rs">Built with Cobalt</a>
+  </p>
+  <br>
+</footer>
+
+</body>
+</html>

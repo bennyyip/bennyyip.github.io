@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>Ben Yip&apos;s Blog</title><link>https://bennyyip.github.io</link><description>Things about JS, Rust, Mozilla and more!</description><item><title>Standford CS140e 流水帐</title><link>https://bennyyip.github.io/blog/cs140e.html</link><description>&lt;h1&gt;介绍&lt;/h1&gt;
+&lt;p&gt;CS140e 是今年一月份开的一门使用 Rust 和 Rasberry Pi 教学操作系统的课程，内容包括：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Disks, File systems, I/O, Threads &amp;amp; Processes, Scheduling, Virtual Memory, Protection &amp;amp; Security, Interrupts, Concurrency &amp;amp; Synchronization.&lt;/p&gt;
+&lt;/blockquote&gt;
+</description><guid>https://bennyyip.github.io/blog/cs140e.html</guid><pubDate>Sun,  4 Feb 2018 00:02:20 +0800</pubDate></item><item><title>试水 Elixir</title><link>https://bennyyip.github.io/blog/elixir.html</link><description>&lt;p&gt;我这个星期接触了 Elixir，遇到蛮多有趣的东西，于是写 blog 分享下。官方的介绍如下：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Elixir is a dynamic, functional language designed for building scalable and maintainable applications.&lt;/p&gt;
+&lt;/blockquote&gt;
+</description><guid>https://bennyyip.github.io/blog/elixir.html</guid><pubDate>Mon, 22 Jan 2018 01:02:52 +0800</pubDate></item><item><title>安利 LeaderF</title><link>https://bennyyip.github.io/blog/leaderf.html</link><description>&lt;h1&gt;LeaderF 是什麼&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/Yggdroot/LeaderF&quot;&gt;LeaderF&lt;/a&gt; 是一個用於模糊搜索的 Vim 插件（fuzzy finder），可以用來找文件、打開的 buffer、最近打開的文件（MRU）等等。甚至，你可以給它寫拓展，找你想找的東西（我寫過兩個 LeaderF 插件，後面會提到）。&lt;/p&gt;
+</description><guid>https://bennyyip.github.io/blog/leaderf.html</guid><pubDate>Fri, 24 Nov 2017 22:49:25 +0800</pubDate></item><item><title>Linux 初體驗及中州韻配置小記</title><link>https://bennyyip.github.io/blog/rime-config.html</link><description>&lt;h1&gt;緣起&lt;/h1&gt;
+&lt;p&gt;近期打算遷移至 Arch Linux， 在虛擬機器體驗了幾天，等開學之後配部桌上型電腦再正式叛逃過去。
+在這幾天裡，我試用了相當數目的新軟體(vim之類的早在用的就不說了），在這裡列個清單備忘 &lt;/p&gt;
+</description><guid>https://bennyyip.github.io/blog/rime-config.html</guid><pubDate>Fri, 10 Feb 2017 00:20:47 +0800</pubDate></item><item><title>关于异或运算的一些 tricks</title><link>https://bennyyip.github.io/blog/xor-tricks.html</link><description>&lt;h1&gt;异或运算的一些性质&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;交换律：&lt;code&gt;a ^ b = b ^ a&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;结合律：&lt;code&gt;a ^ (b ^ c) = b ^ c&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;异或是异或的逆运算：&lt;code&gt;a ^ b = c &amp;lt;=&amp;gt; b ^ c = a&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description><guid>https://bennyyip.github.io/blog/xor-tricks.html</guid><pubDate>Fri, 19 Aug 2016 23:02:52 +0800</pubDate></item><item><title>Happy Hacking</title><link>https://bennyyip.github.io/blog/happy-hacking.html</link><description>&lt;h1&gt;为什么写 blog?&lt;/h1&gt;
+</description><guid>https://bennyyip.github.io/blog/happy-hacking.html</guid><pubDate>Fri, 13 May 2016 21:47:20 +0800</pubDate></item></channel></rss>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>外部記憶永不眠</title>
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<link rel="stylesheet" href="/statics/highlight/github.css" type="text/css" media="all" />
+<link rel="stylesheet" href="/statics/style.css" type="text/css" media="all" />
+<link rel="alternate" href="/rss.xml" type="application/rss+xml" title="RSS" />
+
+
+<link rel="icon" sizes="192x192" href="/favicon.png">
+
+
+<script>
+(function(u, c) {
+  var d = document, t = 'script', o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+  o.src = u;
+  if (c) { o.addEventListener('load', function(e) { c(e); }); }
+  s.parentNode.insertBefore(o, s);
+})('//cdn.bootcss.com/pangu/3.3.0/pangu.min.js', function() {
+  pangu.spacingPage();
+});
+</script>
+
+<script src="/statics/highlight.pack.js"></script>
+<script type="text/javascript">hljs.initHighlightingOnLoad();</script>
+
+  </head>
+<body data-route=blog>
+  <nav class="menu">
+  <a class="menu-item " href="/about/">About</a>
+  <a class="menu-item current" href="/">Blog</a>
+  <a class="menu-item icon" href="http://github.com/bennyyip"><i class="fa fa-github-square"></i></a>
+  <a class="menu-item icon" href="http://twitter.com/__benyip"><i class="fa fa-twitter-square"></i></a>
+  <a class="menu-item icon" href="/rss.xml"><i class="fa fa-rss-square"></i></a>
+  <hr>
+</nav>
+
+  <main>
+    
+  <article>
+    <h1><a href="blog/cs140e.html">Standford CS140e 流水帐</a></h1>
+    <p> <h1>介绍</h1>
+<p>CS140e 是今年一月份开的一门使用 Rust 和 Rasberry Pi 教学操作系统的课程，内容包括：</p>
+<blockquote>
+<p>Disks, File systems, I/O, Threads &amp; Processes, Scheduling, Virtual Memory, Protection &amp; Security, Interrupts, Concurrency &amp; Synchronization.</p>
+</blockquote>
+<p>这门课有 5 个 assignment：</p>
+<ul>
+<li>Assignment 0: Raspberry Pi Setup</li>
+<li>Assignment 1: Shell and Bootloader</li>
+<li>Assignment 2: SD Driver and FAT File System</li>
+<li>Assignment 3: Spawn</li>
+<li>Assignment 4: Multitasking and Multicore</li>
+</ul>
+<p>我个人蛮喜欢 Rust，再加上下学期上操作系统的课，于是打算在寒假跟着这门课学操作系统。</p>
+<p>由于 honor code 的原因，我不会分享实际的代码。</p>
+ </p>
+    <div class="read-more"> <a href="blog/cs140e.html ">Read More...</a> </div>
+  </article>
+
+  <article>
+    <h1><a href="blog/elixir.html">试水 Elixir</a></h1>
+    <p> <p>我这个星期接触了 Elixir，遇到蛮多有趣的东西，于是写 blog 分享下。官方的介绍如下：</p>
+<blockquote>
+<p>Elixir is a dynamic, functional language designed for building scalable and maintainable applications.</p>
+</blockquote>
+<p>要用一句话概括这语言给我的感觉就是：「皮是 Ruby, 肉是 Erlang, 骨是 Lisp」。</p>
+ </p>
+    <div class="read-more"> <a href="blog/elixir.html ">Read More...</a> </div>
+  </article>
+
+  <article>
+    <h1><a href="blog/leaderf.html">安利 LeaderF</a></h1>
+    <p> <h1>LeaderF 是什麼</h1>
+<p><a href="https://github.com/Yggdroot/LeaderF">LeaderF</a> 是一個用於模糊搜索的 Vim 插件（fuzzy finder），可以用來找文件、打開的 buffer、最近打開的文件（MRU）等等。甚至，你可以給它寫拓展，找你想找的東西（我寫過兩個 LeaderF 插件，後面會提到）。</p>
+<p><img src="https://raw.githubusercontent.com/Yggdroot/Images/master/leaderf/leaderf_1.gif" alt="NameOnly Mode" /></p>
+<p><img src="https://raw.githubusercontent.com/Yggdroot/Images/master/leaderf/leaderf_2.gif" alt="FullPath Mode" /></p>
+ </p>
+    <div class="read-more"> <a href="blog/leaderf.html ">Read More...</a> </div>
+  </article>
+
+  <article>
+    <h1><a href="blog/rime-config.html">Linux 初體驗及中州韻配置小記</a></h1>
+    <p> <h1>緣起</h1>
+<p>近期打算遷移至 Arch Linux， 在虛擬機器體驗了幾天，等開學之後配部桌上型電腦再正式叛逃過去。
+在這幾天裡，我試用了相當數目的新軟體(vim之類的早在用的就不說了），在這裡列個清單備忘</p>
+ </p>
+    <div class="read-more"> <a href="blog/rime-config.html ">Read More...</a> </div>
+  </article>
+
+  <article>
+    <h1><a href="blog/xor-tricks.html">关于异或运算的一些 tricks</a></h1>
+    <p> <h1>异或运算的一些性质</h1>
+<ul>
+<li>交换律：<code>a ^ b = b ^ a</code></li>
+<li>结合律：<code>a ^ (b ^ c) = b ^ c</code></li>
+<li>异或是异或的逆运算：<code>a ^ b = c &lt;=&gt; b ^ c = a</code></li>
+</ul>
+<p>推论：</p>
+<ul>
+<li><code>x ^ 0 = x</code></li>
+<li><code>x ^ x = 0</code></li>
+</ul>
+<p>阅读下文之前请务必把上述几个性质搞明白。
+下面介绍几个比较 tricky 的应用，越往下越复杂。</p>
+ </p>
+    <div class="read-more"> <a href="blog/xor-tricks.html ">Read More...</a> </div>
+  </article>
+
+  <article>
+    <h1><a href="blog/happy-hacking.html">Happy Hacking</a></h1>
+    <p> <h1>为什么写 blog?</h1>
+<p>让发生过的事情留下些痕迹，作为成长的记录。</p>
+ </p>
+    <div class="read-more"> <a href="blog/happy-hacking.html ">Read More...</a> </div>
+  </article>
+
+
+  </main>
+  <footer>
+  <hr>
+  <p>
+    <a href="/license/">CC BY-SA 4.0 / MIT</a>
+    -
+    <a href="https://github.com/cobalt-org/cobalt.rs">Built with Cobalt</a>
+  </p>
+  <br>
+</footer>
+
+</body>
+</html>

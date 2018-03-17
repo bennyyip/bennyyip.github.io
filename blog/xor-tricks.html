@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>关于异或运算的一些 tricks</title>
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<link rel="stylesheet" href="/statics/highlight/github.css" type="text/css" media="all" />
+<link rel="stylesheet" href="/statics/style.css" type="text/css" media="all" />
+<link rel="alternate" href="/rss.xml" type="application/rss+xml" title="RSS" />
+
+
+<link rel="icon" sizes="192x192" href="/favicon.png">
+
+
+<script>
+(function(u, c) {
+  var d = document, t = 'script', o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+  o.src = u;
+  if (c) { o.addEventListener('load', function(e) { c(e); }); }
+  s.parentNode.insertBefore(o, s);
+})('//cdn.bootcss.com/pangu/3.3.0/pangu.min.js', function() {
+  pangu.spacingPage();
+});
+</script>
+
+<script src="/statics/highlight.pack.js"></script>
+<script type="text/javascript">hljs.initHighlightingOnLoad();</script>
+
+  </head>
+<body data-route=blog>
+  <nav class="menu">
+  <a class="menu-item " href="/about/">About</a>
+  <a class="menu-item current" href="/">Blog</a>
+  <a class="menu-item icon" href="http://github.com/bennyyip"><i class="fa fa-github-square"></i></a>
+  <a class="menu-item icon" href="http://twitter.com/__benyip"><i class="fa fa-twitter-square"></i></a>
+  <a class="menu-item icon" href="/rss.xml"><i class="fa fa-rss-square"></i></a>
+  <hr>
+</nav>
+
+  <main>
+    <article>
+      <h1>关于异或运算的一些 tricks</h1>
+      <time pubdate="pubdate">Aug 19, 2016</time>
+      <h1>异或运算的一些性质</h1>
+<ul>
+<li>交换律：<code>a ^ b = b ^ a</code></li>
+<li>结合律：<code>a ^ (b ^ c) = b ^ c</code></li>
+<li>异或是异或的逆运算：<code>a ^ b = c &lt;=&gt; b ^ c = a</code></li>
+</ul>
+<p>推论：</p>
+<ul>
+<li><code>x ^ 0 = x</code></li>
+<li><code>x ^ x = 0</code></li>
+</ul>
+<p>阅读下文之前请务必把上述几个性质搞明白。
+下面介绍几个比较 tricky 的应用，越往下越复杂。</p>
+
+<h1>简单的加密</h1>
+<p>由于异或的逆运算是它本身，因此可以实现简单的加密。（其实有逆运算的运算就可以用来加密）
+设明文 <code>M</code>, 密钥 <code>S</code>, 密文 <code>C</code>
+加密：<code>C = M ^ S</code>
+解密：<code>M = C ^ S</code></p>
+<h1>交换两个数</h1>
+<pre><code class="language-cpp">a = a ^ b;
+b = a ^ b; // a ^ b ^ b == a
+a = a ^ b; // a ^ b ^ a == b
+</code></pre>
+<p>这是一个广为人知却不实用的技巧，比用中间变量的方法慢且不通用。</p>
+<h1>Single Number</h1>
+<blockquote>
+<p>Given an array of integers, every element appears twice except for one. Find that single one.</p>
+</blockquote>
+<blockquote>
+<p>Note:
+Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?</p>
+</blockquote>
+<p>这是 leetcode 上的<a href="https://leetcode.com/problems/single-number/">一道题目</a>, 利用异或的性质可以得到一个相当简洁的解。</p>
+<pre><code class="language-cpp">class Solution {
+ public:
+  int singleNumber(vector&lt;int&gt;&amp; nums) {
+    int result = 0;
+    for (int i : nums) {
+      result^=i;
+    }
+    return result;
+  }
+};
+</code></pre>
+<h1>实现双向链表</h1>
+<blockquote>
+<p><strong>CLRS 10.2-8</strong>
+Explain how to implement doubly linked lists using only one pointer value x.np per item instead of the usual two (next and prev). Assume that all pointer values can be interpreted as k-bit integers, and define x.np = x.next XOR x.prev, the k-bit &quot;exclusive-or&quot; of x.next and x.prev. (The value NIL is represented by 0). Be sure to describe what information you need to access the head of the list. Show how to implement the SEARCH, INSERT and DELETE operations on such a list. Also show how to reverse such a list in O(1) time.</p>
+</blockquote>
+<p>之所以写这篇 blog 其实就是因为刚刚写完这道题，觉得很新奇。这是一种特殊的双向链表，一般的双向链表的结点是有 <code>prev</code> 和 <code>next</code> 两个指针的，而它只有一个 <code>np</code> 指针，<code>np = prev ^ next</code>. 由于 <code>xor</code> 是 <code>xor</code> 的逆运算，所以 <code>np</code> <code>prev</code> <code>next</code> 三者可以知二求一，即：
+<code>np = prev ^ next</code>
+<code>prev = np ^ next</code>
+<code>next = prev ^ np</code>
+这样实现的链表空间复杂度是寻常链表的一半。而在时间复杂度方面，插入，查找，删除都是 <code>O(n)</code> 的，除了在头尾时是 <code>O(1)</code>. 但是它的 <code>reverse</code> 操作是 <code>O(1)</code> 的，只需把 <code>head</code> 和 <code>tail</code> 交换。下面它是 C++ 的实现。</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+// a ^ b = c ==&gt; b ^ c = a
+struct node {
+  int key;
+  node* np;  // np = prev xor next
+  node(int val, node* _np = nullptr) : key(val), np(_np) {}
+};
+
+class xor_list {
+ public:
+  xor_list() : head(nullptr), tail(nullptr) {}
+
+  void insert(int val) {
+    if (!head) {
+      auto to_insert = new node(val);
+      head = to_insert;
+      tail = to_insert;
+      return;
+    }
+    if (tail) {
+      auto to_insert = new node(val, ptr_xor(tail, nullptr));
+      tail-&gt;np = ptr_xor(prev_ptr(tail, nullptr), to_insert);
+      tail = to_insert;
+      return;
+    }
+  }
+
+  node* search(int val) {
+    node* prev = nullptr;
+    node* next;
+    auto ptr = head;
+    while (ptr) {
+      next = next_ptr(prev, ptr);
+      if (ptr-&gt;key == val) return ptr;
+      prev = ptr;
+      ptr = next;
+    }
+    return nullptr;
+  }
+
+  node* remove(node* to_remove) {
+    node* prev = nullptr;
+    node* next;
+    auto ptr = head;
+    while (ptr) {
+      next = next_ptr(prev, ptr);
+      if (ptr == to_remove) break;
+      prev = ptr;
+      ptr = next;
+    }
+    if (ptr == nullptr) return nullptr;
+    prev-&gt;np = ptr_xor(prev_ptr(prev, ptr), next);
+    next-&gt;np = ptr_xor(prev, next_ptr(ptr, next));
+    delete ptr;
+    return next;
+  }
+
+  void reverse() {
+    auto tmp = head;
+    head = tail;
+    tail = tmp;
+  }
+
+  void show() {
+    node* prev = nullptr;
+    auto ptr = head;
+    while (ptr) {
+      std::cout &lt;&lt; ptr-&gt;key &lt;&lt; &quot;, &quot;;
+      auto next = ptr_xor(prev, ptr-&gt;np);
+      prev = ptr;
+      ptr = next;
+    }
+    std::cout &lt;&lt; std::endl;
+  }
+
+ private:
+  node* ptr_xor(node* lhs, node* rhs) {
+    return (node*)((unsigned long)lhs ^ (unsigned long)rhs);
+  }
+
+  node* prev_ptr(node* curr, node* next) { return ptr_xor(curr-&gt;np, next); }
+  node* next_ptr(node* prev, node* curr) { return ptr_xor(prev, curr-&gt;np); }
+
+ private:
+  node* head;
+  node* tail;
+};
+
+// test
+int main() {
+  xor_list xl;
+  for (int i = 0; i &lt; 10; ++i) {
+    xl.insert(i);
+  }
+  xl.show();
+  xl.remove(xl.search(4));
+  xl.show();
+  xl.reverse();
+  xl.show();
+}
+</code></pre>
+
+    </article>
+  </main>
+  <footer>
+  <hr>
+  <p>
+    <a href="/license/">CC BY-SA 4.0 / MIT</a>
+    -
+    <a href="https://github.com/cobalt-org/cobalt.rs">Built with Cobalt</a>
+  </p>
+  <br>
+</footer>
+
+</body>
+</html>

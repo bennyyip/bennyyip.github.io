@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>安利 LeaderF</title>
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<link rel="stylesheet" href="/statics/highlight/github.css" type="text/css" media="all" />
+<link rel="stylesheet" href="/statics/style.css" type="text/css" media="all" />
+<link rel="alternate" href="/rss.xml" type="application/rss+xml" title="RSS" />
+
+
+<link rel="icon" sizes="192x192" href="/favicon.png">
+
+
+<script>
+(function(u, c) {
+  var d = document, t = 'script', o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+  o.src = u;
+  if (c) { o.addEventListener('load', function(e) { c(e); }); }
+  s.parentNode.insertBefore(o, s);
+})('//cdn.bootcss.com/pangu/3.3.0/pangu.min.js', function() {
+  pangu.spacingPage();
+});
+</script>
+
+<script src="/statics/highlight.pack.js"></script>
+<script type="text/javascript">hljs.initHighlightingOnLoad();</script>
+
+  </head>
+<body data-route=blog>
+  <nav class="menu">
+  <a class="menu-item " href="/about/">About</a>
+  <a class="menu-item current" href="/">Blog</a>
+  <a class="menu-item icon" href="http://github.com/bennyyip"><i class="fa fa-github-square"></i></a>
+  <a class="menu-item icon" href="http://twitter.com/__benyip"><i class="fa fa-twitter-square"></i></a>
+  <a class="menu-item icon" href="/rss.xml"><i class="fa fa-rss-square"></i></a>
+  <hr>
+</nav>
+
+  <main>
+    <article>
+      <h1>安利 LeaderF</h1>
+      <time pubdate="pubdate">Nov 24, 2017</time>
+      <h1>LeaderF 是什麼</h1>
+<p><a href="https://github.com/Yggdroot/LeaderF">LeaderF</a> 是一個用於模糊搜索的 Vim 插件（fuzzy finder），可以用來找文件、打開的 buffer、最近打開的文件（MRU）等等。甚至，你可以給它寫拓展，找你想找的東西（我寫過兩個 LeaderF 插件，後面會提到）。</p>
+<p><img src="https://raw.githubusercontent.com/Yggdroot/Images/master/leaderf/leaderf_1.gif" alt="NameOnly Mode" /></p>
+<p><img src="https://raw.githubusercontent.com/Yggdroot/Images/master/leaderf/leaderf_2.gif" alt="FullPath Mode" /></p>
+
+<h1>爲什麼是 LeaderF</h1>
+<p>其實同類的 Vim 插件很多，光我用過的就有 CtrlP，Denite，fzf，它們各有各的缺點：</p>
+<ul>
+<li>CtrlP：純 Vim 實現，速度奇慢。</li>
+<li>Denite： CtrlP 繼任者。它使用 Python 實現，但是反應速度依然不夠快。並且根據我給它和 LeaderF 開發插件的經驗，寫 LeaderF 的插件比較容易。</li>
+<li>fzf：fzf 一個用 Golang 寫的 fuzzy finder 程序，vim 插件只是把它集成了，性能相當不錯。它的問題在於有外部依賴以及配置麻煩，因此我沒選擇用它。</li>
+</ul>
+<p>那 LeaderF 有哪些優勢呢？</p>
+<ul>
+<li>使用 Python 和 Vimscript 實現，只要需要 Vim 版本大於 7.4 並且編譯了 Python 支持。</li>
+<li>LeaderF 提供了 C 的 fuzz match 算法，可以用來替換原來用 Python 寫的版本。儘管 Python 版本已經非常快了，作者宣稱有 10 倍的提速。</li>
+<li>使用緩存。只有第一次查詢的時候會取獲取數據，後續都只是返回緩存好的數據，除非按 F5 讓它刷新數據。</li>
+<li>拓展性好，寫拓展相當方便。</li>
+<li>同時支持 regex 和 fuzz 兩種模式。</li>
+</ul>
+<h1>拓展</h1>
+<p>LeaderF 的作者提供了一個拓展的例子 <a href="https://github.com/Yggdroot/LeaderF-marks">LeaderF-marks</a>，是一個跳轉到 mark 的插件。
+我照貓畫虎，做了 <a href="https://github.com/bennyyip/LeaderF-ghq">LeaderF-ghq</a> 和 <a href="https://github.com/bennyyip/LeaderF-github-stars">LeaderF-github-stars</a>。
+<a href="https://github.com/motemen/ghq">ghq</a> 是一個管理 GitHub 倉庫的一個軟件，我寫的插件是用來快速跳轉到這些倉庫。
+GitHub Stars，顧名思義，用來在瀏覽器中打開你在 GitHub star 過的項目。</p>
+<h1>Color Scheme</h1>
+<p>我不喜歡 LeaderF 的默認配色，做了一個 <a href="https://github.com/bennyyip/dot-vim/blob/master/after/autoload/leaderf/colorscheme/gruvbox.vim">gruvbox 配色</a>。
+如果你也在用 gruvbox，可以考慮使用這個配色，因爲它依賴 gruvbox。</p>
+<p><img src="/img/leaderf-gruvbox.png" alt="leaderf gruvbox" /></p>
+
+    </article>
+  </main>
+  <footer>
+  <hr>
+  <p>
+    <a href="/license/">CC BY-SA 4.0 / MIT</a>
+    -
+    <a href="https://github.com/cobalt-org/cobalt.rs">Built with Cobalt</a>
+  </p>
+  <br>
+</footer>
+
+</body>
+</html>
