@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="/statics/highlight/github.css" type="text/css" media="all" />
 <link rel="stylesheet" href="/statics/style.css" type="text/css" media="all" />
 <link rel="alternate" href="/rss.xml" type="application/rss+xml" title="RSS" />
+<link href="https://mastodon.social/@bennyyip" rel="me">
 
 
 <link rel="icon" sizes="192x192" href="/favicon.png">
@@ -176,8 +177,9 @@
 </ul>
 <p>整个 TrapFrame 有 800 字节（由于栈指针寄存器必须 16 字节对齐，有一个无意义的 32 位数据），其中 SIMD/FP 寄存器占了 512 字节。而且 AArch64 架构允许关闭这些寄存器，这时应该不保存这些寄存器到 TrapFrame。这一部分我暂时还没想好怎么实现比较合适。</p>
 <p>不得不说 AArch64 汇编实在是紧凑过头了，人类 parse 起来很吃力。比如压栈，是这样写的：</p>
-<pre><code>    stp x0, x1, [SP, #-16]! // SP -= 16; *SP = x0, *(SP + 8) = x0
-</code></pre>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">    stp x0, x1, [SP, #-16]! // SP -= 16; *SP = x0, *(SP + 8) = x0
+</span></code></pre>
 <p>神他妈带副作用寻址模式，神他妈一次性 store 两个寄存器（stp = store pair）……</p>
 <p>贵校的体系结构拆成三学期用三本书教，一堆概念重复三次，却每次都避开硬件异常不讲。我也一直偷懒没学，这次总算有了多少了解。</p>
 <p>另外，这次提供的代码居然是编译不过的…… <code>x30</code> 存放着 link address，文档写着 <code>lr</code> 使它的别名。然而 CS140e 提供 <code>aarch64-none-elf-gcc</code> 的汇编器不认 <code>lr</code>。</p>

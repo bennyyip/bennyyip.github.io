@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="/statics/highlight/github.css" type="text/css" media="all" />
 <link rel="stylesheet" href="/statics/style.css" type="text/css" media="all" />
 <link rel="alternate" href="/rss.xml" type="application/rss+xml" title="RSS" />
+<link href="https://mastodon.social/@bennyyip" rel="me">
 
 
 <link rel="icon" sizes="192x192" href="/favicon.png">
@@ -60,13 +61,14 @@
 <h1>简单的加密</h1>
 <p>由于异或的逆运算是它本身，因此可以实现简单的加密。（其实有逆运算的运算就可以用来加密）
 设明文 <code>M</code>, 密钥 <code>S</code>, 密文 <code>C</code>
-加密：<code>C = M ^ S</code>
+加密：<code>C = M ^ S </code>
 解密：<code>M = C ^ S</code></p>
 <h1>交换两个数</h1>
-<pre><code class="language-cpp">a = a ^ b;
-b = a ^ b; // a ^ b ^ b == a
-a = a ^ b; // a ^ b ^ a == b
-</code></pre>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">a = a ^ b;
+</span><span style="color:#c0c5ce;">b = a ^ b; </span><span style="color:#65737e;">// a ^ b ^ b == a
+</span><span style="color:#c0c5ce;">a = a ^ b; </span><span style="color:#65737e;">// a ^ b ^ a == b
+</span></code></pre>
 <p>这是一个广为人知却不实用的技巧，比用中间变量的方法慢且不通用。</p>
 <h1>Single Number</h1>
 <blockquote>
@@ -77,17 +79,18 @@ a = a ^ b; // a ^ b ^ a == b
 Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?</p>
 </blockquote>
 <p>这是 leetcode 上的<a href="https://leetcode.com/problems/single-number/">一道题目</a>, 利用异或的性质可以得到一个相当简洁的解。</p>
-<pre><code class="language-cpp">class Solution {
- public:
-  int singleNumber(vector&lt;int&gt;&amp; nums) {
-    int result = 0;
-    for (int i : nums) {
-      result^=i;
-    }
-    return result;
-  }
-};
-</code></pre>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">class </span><span style="color:#ebcb8b;">Solution </span><span style="color:#eff1f5;">{
+</span><span style="color:#eff1f5;"> </span><span style="color:#b48ead;">public</span><span style="color:#eff1f5;">:
+</span><span style="color:#eff1f5;">  </span><span style="color:#b48ead;">int </span><span style="color:#8fa1b3;">singleNumber</span><span style="color:#eff1f5;">(vector&lt;</span><span style="color:#b48ead;">int</span><span style="color:#eff1f5;">&gt;</span><span style="color:#c0c5ce;">&amp; </span><span style="color:#bf616a;">nums</span><span style="color:#eff1f5;">) {
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">int</span><span style="color:#eff1f5;"> result </span><span style="color:#c0c5ce;">= </span><span style="color:#d08770;">0</span><span style="color:#eff1f5;">;
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">for </span><span style="color:#eff1f5;">(</span><span style="color:#b48ead;">int</span><span style="color:#eff1f5;"> i </span><span style="color:#c0c5ce;">:</span><span style="color:#eff1f5;"> nums) {
+</span><span style="color:#eff1f5;">      result</span><span style="color:#c0c5ce;">^=</span><span style="color:#eff1f5;">i;
+</span><span style="color:#eff1f5;">    }
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">return</span><span style="color:#eff1f5;"> result;
+</span><span style="color:#eff1f5;">  }
+</span><span style="color:#eff1f5;">}</span><span style="color:#c0c5ce;">;
+</span></code></pre>
 <h1>实现双向链表</h1>
 <blockquote>
 <p><strong>CLRS 10.2-8</strong>
@@ -98,108 +101,109 @@ Explain how to implement doubly linked lists using only one pointer value x.np p
 <code>prev = np ^ next</code>
 <code>next = prev ^ np</code>
 这样实现的链表空间复杂度是寻常链表的一半。而在时间复杂度方面，插入，查找，删除都是 <code>O(n)</code> 的，除了在头尾时是 <code>O(1)</code>. 但是它的 <code>reverse</code> 操作是 <code>O(1)</code> 的，只需把 <code>head</code> 和 <code>tail</code> 交换。下面它是 C++ 的实现。</p>
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-
-// a ^ b = c ==&gt; b ^ c = a
-struct node {
-  int key;
-  node* np;  // np = prev xor next
-  node(int val, node* _np = nullptr) : key(val), np(_np) {}
-};
-
-class xor_list {
- public:
-  xor_list() : head(nullptr), tail(nullptr) {}
-
-  void insert(int val) {
-    if (!head) {
-      auto to_insert = new node(val);
-      head = to_insert;
-      tail = to_insert;
-      return;
-    }
-    if (tail) {
-      auto to_insert = new node(val, ptr_xor(tail, nullptr));
-      tail-&gt;np = ptr_xor(prev_ptr(tail, nullptr), to_insert);
-      tail = to_insert;
-      return;
-    }
-  }
-
-  node* search(int val) {
-    node* prev = nullptr;
-    node* next;
-    auto ptr = head;
-    while (ptr) {
-      next = next_ptr(prev, ptr);
-      if (ptr-&gt;key == val) return ptr;
-      prev = ptr;
-      ptr = next;
-    }
-    return nullptr;
-  }
-
-  node* remove(node* to_remove) {
-    node* prev = nullptr;
-    node* next;
-    auto ptr = head;
-    while (ptr) {
-      next = next_ptr(prev, ptr);
-      if (ptr == to_remove) break;
-      prev = ptr;
-      ptr = next;
-    }
-    if (ptr == nullptr) return nullptr;
-    prev-&gt;np = ptr_xor(prev_ptr(prev, ptr), next);
-    next-&gt;np = ptr_xor(prev, next_ptr(ptr, next));
-    delete ptr;
-    return next;
-  }
-
-  void reverse() {
-    auto tmp = head;
-    head = tail;
-    tail = tmp;
-  }
-
-  void show() {
-    node* prev = nullptr;
-    auto ptr = head;
-    while (ptr) {
-      std::cout &lt;&lt; ptr-&gt;key &lt;&lt; &quot;, &quot;;
-      auto next = ptr_xor(prev, ptr-&gt;np);
-      prev = ptr;
-      ptr = next;
-    }
-    std::cout &lt;&lt; std::endl;
-  }
-
- private:
-  node* ptr_xor(node* lhs, node* rhs) {
-    return (node*)((unsigned long)lhs ^ (unsigned long)rhs);
-  }
-
-  node* prev_ptr(node* curr, node* next) { return ptr_xor(curr-&gt;np, next); }
-  node* next_ptr(node* prev, node* curr) { return ptr_xor(prev, curr-&gt;np); }
-
- private:
-  node* head;
-  node* tail;
-};
-
-// test
-int main() {
-  xor_list xl;
-  for (int i = 0; i &lt; 10; ++i) {
-    xl.insert(i);
-  }
-  xl.show();
-  xl.remove(xl.search(4));
-  xl.show();
-  xl.reverse();
-  xl.show();
-}
-</code></pre>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#b48ead;">#include </span><span style="color:#c0c5ce;">&lt;</span><span style="color:#a3be8c;">iostream</span><span style="color:#c0c5ce;">&gt;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#65737e;">// a ^ b = c ==&gt; b ^ c = a
+</span><span style="color:#b48ead;">struct </span><span style="color:#c0c5ce;">node {
+</span><span style="color:#c0c5ce;">  </span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> key;
+</span><span style="color:#c0c5ce;">  node* np;  </span><span style="color:#65737e;">// np = prev xor next
+</span><span style="color:#c0c5ce;">  </span><span style="color:#8fa1b3;">node</span><span style="color:#c0c5ce;">(</span><span style="color:#b48ead;">int </span><span style="color:#bf616a;">val</span><span style="color:#c0c5ce;">, node* </span><span style="color:#bf616a;">_np </span><span style="color:#c0c5ce;">= </span><span style="color:#d08770;">nullptr</span><span style="color:#c0c5ce;">) : </span><span style="color:#bf616a;">key</span><span style="color:#c0c5ce;">(val), </span><span style="color:#bf616a;">np</span><span style="color:#c0c5ce;">(_np) {}
+</span><span style="color:#c0c5ce;">};
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#b48ead;">class </span><span style="color:#ebcb8b;">xor_list </span><span style="color:#eff1f5;">{
+</span><span style="color:#eff1f5;"> </span><span style="color:#b48ead;">public</span><span style="color:#eff1f5;">:
+</span><span style="color:#eff1f5;">  </span><span style="color:#8fa1b3;">xor_list</span><span style="color:#eff1f5;">() : </span><span style="color:#bf616a;">head</span><span style="color:#eff1f5;">(</span><span style="color:#d08770;">nullptr</span><span style="color:#eff1f5;">), </span><span style="color:#bf616a;">tail</span><span style="color:#eff1f5;">(</span><span style="color:#d08770;">nullptr</span><span style="color:#eff1f5;">) {}
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;">  </span><span style="color:#b48ead;">void </span><span style="color:#8fa1b3;">insert</span><span style="color:#eff1f5;">(</span><span style="color:#b48ead;">int </span><span style="color:#bf616a;">val</span><span style="color:#eff1f5;">) {
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">if </span><span style="color:#eff1f5;">(</span><span style="color:#c0c5ce;">!</span><span style="color:#eff1f5;">head) {
+</span><span style="color:#eff1f5;">      </span><span style="color:#b48ead;">auto</span><span style="color:#eff1f5;"> to_insert </span><span style="color:#c0c5ce;">= </span><span style="color:#b48ead;">new </span><span style="color:#8fa1b3;">node</span><span style="color:#eff1f5;">(val);
+</span><span style="color:#eff1f5;">      head </span><span style="color:#c0c5ce;">=</span><span style="color:#eff1f5;"> to_insert;
+</span><span style="color:#eff1f5;">      tail </span><span style="color:#c0c5ce;">=</span><span style="color:#eff1f5;"> to_insert;
+</span><span style="color:#eff1f5;">      </span><span style="color:#b48ead;">return</span><span style="color:#eff1f5;">;
+</span><span style="color:#eff1f5;">    }
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">if </span><span style="color:#eff1f5;">(tail) {
+</span><span style="color:#eff1f5;">      </span><span style="color:#b48ead;">auto</span><span style="color:#eff1f5;"> to_insert </span><span style="color:#c0c5ce;">= </span><span style="color:#b48ead;">new </span><span style="color:#8fa1b3;">node</span><span style="color:#eff1f5;">(val, </span><span style="color:#8fa1b3;">ptr_xor</span><span style="color:#eff1f5;">(tail, </span><span style="color:#d08770;">nullptr</span><span style="color:#eff1f5;">));
+</span><span style="color:#eff1f5;">      tail-&gt;</span><span style="color:#bf616a;">np </span><span style="color:#c0c5ce;">= </span><span style="color:#8fa1b3;">ptr_xor</span><span style="color:#eff1f5;">(</span><span style="color:#8fa1b3;">prev_ptr</span><span style="color:#eff1f5;">(tail, </span><span style="color:#d08770;">nullptr</span><span style="color:#eff1f5;">), to_insert);
+</span><span style="color:#eff1f5;">      tail </span><span style="color:#c0c5ce;">=</span><span style="color:#eff1f5;"> to_insert;
+</span><span style="color:#eff1f5;">      </span><span style="color:#b48ead;">return</span><span style="color:#eff1f5;">;
+</span><span style="color:#eff1f5;">    }
+</span><span style="color:#eff1f5;">  }
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;">  node</span><span style="color:#c0c5ce;">* </span><span style="color:#8fa1b3;">search</span><span style="color:#eff1f5;">(</span><span style="color:#b48ead;">int </span><span style="color:#bf616a;">val</span><span style="color:#eff1f5;">) {
+</span><span style="color:#eff1f5;">    node</span><span style="color:#c0c5ce;">*</span><span style="color:#eff1f5;"> prev </span><span style="color:#c0c5ce;">= </span><span style="color:#d08770;">nullptr</span><span style="color:#eff1f5;">;
+</span><span style="color:#eff1f5;">    node</span><span style="color:#c0c5ce;">*</span><span style="color:#eff1f5;"> next;
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">auto</span><span style="color:#eff1f5;"> ptr </span><span style="color:#c0c5ce;">=</span><span style="color:#eff1f5;"> head;
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">while </span><span style="color:#eff1f5;">(ptr) {
+</span><span style="color:#eff1f5;">      next </span><span style="color:#c0c5ce;">= </span><span style="color:#8fa1b3;">next_ptr</span><span style="color:#eff1f5;">(prev, ptr);
+</span><span style="color:#eff1f5;">      </span><span style="color:#b48ead;">if </span><span style="color:#eff1f5;">(ptr-&gt;</span><span style="color:#bf616a;">key </span><span style="color:#c0c5ce;">==</span><span style="color:#eff1f5;"> val) </span><span style="color:#b48ead;">return</span><span style="color:#eff1f5;"> ptr;
+</span><span style="color:#eff1f5;">      prev </span><span style="color:#c0c5ce;">=</span><span style="color:#eff1f5;"> ptr;
+</span><span style="color:#eff1f5;">      ptr </span><span style="color:#c0c5ce;">=</span><span style="color:#eff1f5;"> next;
+</span><span style="color:#eff1f5;">    }
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">return </span><span style="color:#d08770;">nullptr</span><span style="color:#eff1f5;">;
+</span><span style="color:#eff1f5;">  }
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;">  node</span><span style="color:#c0c5ce;">* </span><span style="color:#8fa1b3;">remove</span><span style="color:#eff1f5;">(node</span><span style="color:#c0c5ce;">* </span><span style="color:#bf616a;">to_remove</span><span style="color:#eff1f5;">) {
+</span><span style="color:#eff1f5;">    node</span><span style="color:#c0c5ce;">*</span><span style="color:#eff1f5;"> prev </span><span style="color:#c0c5ce;">= </span><span style="color:#d08770;">nullptr</span><span style="color:#eff1f5;">;
+</span><span style="color:#eff1f5;">    node</span><span style="color:#c0c5ce;">*</span><span style="color:#eff1f5;"> next;
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">auto</span><span style="color:#eff1f5;"> ptr </span><span style="color:#c0c5ce;">=</span><span style="color:#eff1f5;"> head;
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">while </span><span style="color:#eff1f5;">(ptr) {
+</span><span style="color:#eff1f5;">      next </span><span style="color:#c0c5ce;">= </span><span style="color:#8fa1b3;">next_ptr</span><span style="color:#eff1f5;">(prev, ptr);
+</span><span style="color:#eff1f5;">      </span><span style="color:#b48ead;">if </span><span style="color:#eff1f5;">(ptr </span><span style="color:#c0c5ce;">==</span><span style="color:#eff1f5;"> to_remove) </span><span style="color:#b48ead;">break</span><span style="color:#eff1f5;">;
+</span><span style="color:#eff1f5;">      prev </span><span style="color:#c0c5ce;">=</span><span style="color:#eff1f5;"> ptr;
+</span><span style="color:#eff1f5;">      ptr </span><span style="color:#c0c5ce;">=</span><span style="color:#eff1f5;"> next;
+</span><span style="color:#eff1f5;">    }
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">if </span><span style="color:#eff1f5;">(ptr </span><span style="color:#c0c5ce;">== </span><span style="color:#d08770;">nullptr</span><span style="color:#eff1f5;">) </span><span style="color:#b48ead;">return </span><span style="color:#d08770;">nullptr</span><span style="color:#eff1f5;">;
+</span><span style="color:#eff1f5;">    prev-&gt;</span><span style="color:#bf616a;">np </span><span style="color:#c0c5ce;">= </span><span style="color:#8fa1b3;">ptr_xor</span><span style="color:#eff1f5;">(</span><span style="color:#8fa1b3;">prev_ptr</span><span style="color:#eff1f5;">(prev, ptr), next);
+</span><span style="color:#eff1f5;">    next-&gt;</span><span style="color:#bf616a;">np </span><span style="color:#c0c5ce;">= </span><span style="color:#8fa1b3;">ptr_xor</span><span style="color:#eff1f5;">(prev, </span><span style="color:#8fa1b3;">next_ptr</span><span style="color:#eff1f5;">(ptr, next));
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">delete</span><span style="color:#eff1f5;"> ptr;
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">return</span><span style="color:#eff1f5;"> next;
+</span><span style="color:#eff1f5;">  }
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;">  </span><span style="color:#b48ead;">void </span><span style="color:#8fa1b3;">reverse</span><span style="color:#eff1f5;">() {
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">auto</span><span style="color:#eff1f5;"> tmp </span><span style="color:#c0c5ce;">=</span><span style="color:#eff1f5;"> head;
+</span><span style="color:#eff1f5;">    head </span><span style="color:#c0c5ce;">=</span><span style="color:#eff1f5;"> tail;
+</span><span style="color:#eff1f5;">    tail </span><span style="color:#c0c5ce;">=</span><span style="color:#eff1f5;"> tmp;
+</span><span style="color:#eff1f5;">  }
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;">  </span><span style="color:#b48ead;">void </span><span style="color:#8fa1b3;">show</span><span style="color:#eff1f5;">() {
+</span><span style="color:#eff1f5;">    node</span><span style="color:#c0c5ce;">*</span><span style="color:#eff1f5;"> prev </span><span style="color:#c0c5ce;">= </span><span style="color:#d08770;">nullptr</span><span style="color:#eff1f5;">;
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">auto</span><span style="color:#eff1f5;"> ptr </span><span style="color:#c0c5ce;">=</span><span style="color:#eff1f5;"> head;
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">while </span><span style="color:#eff1f5;">(ptr) {
+</span><span style="color:#eff1f5;">      std::cout </span><span style="color:#c0c5ce;">&lt;&lt;</span><span style="color:#eff1f5;"> ptr-&gt;</span><span style="color:#bf616a;">key </span><span style="color:#c0c5ce;">&lt;&lt; &quot;</span><span style="color:#a3be8c;">, </span><span style="color:#c0c5ce;">&quot;</span><span style="color:#eff1f5;">;
+</span><span style="color:#eff1f5;">      </span><span style="color:#b48ead;">auto</span><span style="color:#eff1f5;"> next </span><span style="color:#c0c5ce;">= </span><span style="color:#8fa1b3;">ptr_xor</span><span style="color:#eff1f5;">(prev, ptr-&gt;</span><span style="color:#bf616a;">np</span><span style="color:#eff1f5;">);
+</span><span style="color:#eff1f5;">      prev </span><span style="color:#c0c5ce;">=</span><span style="color:#eff1f5;"> ptr;
+</span><span style="color:#eff1f5;">      ptr </span><span style="color:#c0c5ce;">=</span><span style="color:#eff1f5;"> next;
+</span><span style="color:#eff1f5;">    }
+</span><span style="color:#eff1f5;">    std::cout </span><span style="color:#c0c5ce;">&lt;&lt;</span><span style="color:#eff1f5;"> std::endl;
+</span><span style="color:#eff1f5;">  }
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;"> </span><span style="color:#b48ead;">private</span><span style="color:#eff1f5;">:
+</span><span style="color:#eff1f5;">  node</span><span style="color:#c0c5ce;">* </span><span style="color:#8fa1b3;">ptr_xor</span><span style="color:#eff1f5;">(node</span><span style="color:#c0c5ce;">* </span><span style="color:#bf616a;">lhs</span><span style="color:#eff1f5;">, node</span><span style="color:#c0c5ce;">* </span><span style="color:#bf616a;">rhs</span><span style="color:#eff1f5;">) {
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">return </span><span style="color:#eff1f5;">(node</span><span style="color:#c0c5ce;">*</span><span style="color:#eff1f5;">)((</span><span style="color:#b48ead;">unsigned long</span><span style="color:#eff1f5;">)lhs </span><span style="color:#c0c5ce;">^ </span><span style="color:#eff1f5;">(</span><span style="color:#b48ead;">unsigned long</span><span style="color:#eff1f5;">)rhs);
+</span><span style="color:#eff1f5;">  }
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;">  node</span><span style="color:#c0c5ce;">* </span><span style="color:#8fa1b3;">prev_ptr</span><span style="color:#eff1f5;">(node</span><span style="color:#c0c5ce;">* </span><span style="color:#bf616a;">curr</span><span style="color:#eff1f5;">, node</span><span style="color:#c0c5ce;">* </span><span style="color:#bf616a;">next</span><span style="color:#eff1f5;">) { </span><span style="color:#b48ead;">return </span><span style="color:#8fa1b3;">ptr_xor</span><span style="color:#eff1f5;">(curr-&gt;</span><span style="color:#bf616a;">np</span><span style="color:#eff1f5;">, next); }
+</span><span style="color:#eff1f5;">  node</span><span style="color:#c0c5ce;">* </span><span style="color:#8fa1b3;">next_ptr</span><span style="color:#eff1f5;">(node</span><span style="color:#c0c5ce;">* </span><span style="color:#bf616a;">prev</span><span style="color:#eff1f5;">, node</span><span style="color:#c0c5ce;">* </span><span style="color:#bf616a;">curr</span><span style="color:#eff1f5;">) { </span><span style="color:#b48ead;">return </span><span style="color:#8fa1b3;">ptr_xor</span><span style="color:#eff1f5;">(prev, curr-&gt;</span><span style="color:#bf616a;">np</span><span style="color:#eff1f5;">); }
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;"> </span><span style="color:#b48ead;">private</span><span style="color:#eff1f5;">:
+</span><span style="color:#eff1f5;">  node</span><span style="color:#c0c5ce;">*</span><span style="color:#eff1f5;"> head;
+</span><span style="color:#eff1f5;">  node</span><span style="color:#c0c5ce;">*</span><span style="color:#eff1f5;"> tail;
+</span><span style="color:#eff1f5;">}</span><span style="color:#c0c5ce;">;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#65737e;">// test
+</span><span style="color:#b48ead;">int </span><span style="color:#8fa1b3;">main</span><span style="color:#c0c5ce;">() {
+</span><span style="color:#c0c5ce;">  xor_list xl;
+</span><span style="color:#c0c5ce;">  </span><span style="color:#b48ead;">for </span><span style="color:#c0c5ce;">(</span><span style="color:#b48ead;">int</span><span style="color:#c0c5ce;"> i = </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">; i &lt; </span><span style="color:#d08770;">10</span><span style="color:#c0c5ce;">; ++i) {
+</span><span style="color:#c0c5ce;">    xl.</span><span style="color:#8fa1b3;">insert</span><span style="color:#c0c5ce;">(i);
+</span><span style="color:#c0c5ce;">  }
+</span><span style="color:#c0c5ce;">  xl.</span><span style="color:#8fa1b3;">show</span><span style="color:#c0c5ce;">();
+</span><span style="color:#c0c5ce;">  xl.</span><span style="color:#8fa1b3;">remove</span><span style="color:#c0c5ce;">(xl.</span><span style="color:#8fa1b3;">search</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">4</span><span style="color:#c0c5ce;">));
+</span><span style="color:#c0c5ce;">  xl.</span><span style="color:#8fa1b3;">show</span><span style="color:#c0c5ce;">();
+</span><span style="color:#c0c5ce;">  xl.</span><span style="color:#8fa1b3;">reverse</span><span style="color:#c0c5ce;">();
+</span><span style="color:#c0c5ce;">  xl.</span><span style="color:#8fa1b3;">show</span><span style="color:#c0c5ce;">();
+</span><span style="color:#c0c5ce;">}
+</span></code></pre>
 
     </article>
   </main>

@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="/statics/highlight/github.css" type="text/css" media="all" />
 <link rel="stylesheet" href="/statics/style.css" type="text/css" media="all" />
 <link rel="alternate" href="/rss.xml" type="application/rss+xml" title="RSS" />
+<link href="https://mastodon.social/@bennyyip" rel="me">
 
 
 <link rel="icon" sizes="192x192" href="/favicon.png">
@@ -44,8 +45,8 @@
       <h1>Linux 初體驗及中州韻配置小記</h1>
       <time pubdate="pubdate">Feb 10, 2017</time>
       <h1>緣起</h1>
-<p>近期打算遷移至 Arch Linux， 在虛擬機器體驗了幾天，等開學之後配部桌上型電腦再正式叛逃過去。
-在這幾天裡，我試用了相當數目的新軟體(vim之類的早在用的就不說了），在這裡列個清單備忘</p>
+<p>近期打算遷移至 Arch Linux， 在虛擬機器體驗了幾天，等開學之後配部桌上型電腦再正式叛逃過去。 
+在這幾天裡，我試用了相當數目的新軟體(vim之類的早在用的就不說了），在這裡列個清單備忘 </p>
 
 <ul>
 <li>urxvt：終端仿真器</li>
@@ -69,94 +70,99 @@
 <h1>中州韻的安裝及配置</h1>
 <p>事不宜遲，我們現在就切入正題
 我選擇使用 <code>fcitx-rime</code> 這個包，原因是我認識的 Linux 用家裡用 fcitx 的比 ibus 多，我相信他們的選擇。</p>
-<pre><code class="language-bash">sudo yaourt -S fcitx fcitx-im fcitx-configtool fcitx-rime
-</code></pre>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#8fa1b3;">sudo</span><span style="color:#c0c5ce;"> yaourt</span><span style="color:#bf616a;"> -S</span><span style="color:#c0c5ce;"> fcitx fcitx-im fcitx-configtool fcitx-rime
+</span></code></pre>
 <p>其中 fcitx-configtool 是 fcitx 的 GUI 配置工具。安裝好之後需要通過它用中州韻。</p>
 <p>首先中州韻的自帶詞庫不夠豐富，我找來了官方提供的一份詞庫（https://github.com/rime-aca/dictionaries ）<br />
 按照 README.md 的說明，<code>luna_pinyin.dict</code> 資料夾下的所有檔案複製到配置目錄（~/.config/fcitx/rime/)，然後再做後續的配置。</p>
 <p>需要配置的檔案有以下三個：</p>
 <ul>
 <li><code>double_pinyin_flypy.custom.yaml</code></li>
-<li><code>default.custom.yaml</code></li>
-<li><code>luna_pinyin.extended.yaml</code></li>
+<li><code>default.custom.yaml</code> </li>
+<li><code>luna_pinyin.extended.yaml</code> </li>
 </ul>
-<pre><code class="language-yaml"># luna_pinyin.extended.yaml 
-
----
-name: luna_pinyin.extended
-version: &quot;2015.12.02&quot;
-sort: by_weight
-use_preset_vocabulary: true
-#此處爲明月拼音擴充詞庫（基本）默認鏈接載入的詞庫，有朙月拼音官方詞庫、明月拼音擴充詞庫（漢語大詞典）、
-#明月拼音擴充詞庫（詩詞）、明月拼音擴充詞庫（含西文的詞彙）。如果不需要加載某个詞庫請將其用「#」註釋掉。
-#雙拼不支持 luna_pinyin.cn_en 詞庫，請用戶手動禁用。
-import_tables:
-  - luna_pinyin
-  - luna_pinyin.hanyu
-  - luna_pinyin.poetry
-  # - luna_pinyin.cn_en
-...
-</code></pre>
-<p>雙拼用家可以將上面的個檔案的 <code>luna_pinyin.cn_en</code> 一行註釋掉。</p>
-<pre><code class="language-yaml"># double_pinyin_flypy.custom.yaml
-
-patch: 
-  # 雙拼碼不轉換成全拼碼 
-  &quot;translator/preedit_format&quot;: {}
-  # 載入朙月拼音擴充詞庫
-  &quot;translator/dictionary&quot;: luna_pinyin.extended
-</code></pre>
-<pre><code class="language-yaml"># default.custom.yaml 
-
-patch:
-  schema_list:
-    - schema: double_pinyin_flypy
-
-  ascii_composer:
-    switch_key:
-      Shift_L: noop
-      Shift_R: commit_code
-
-  key_binder:
-    bindings:
-      - { when: has_menu, accept: Shift_L,  send: 2 }
-      - { when: has_menu, accept: Control_R, send: 3 }
-      - { when: has_menu, accept: equal, send: Page_Down }
-      - { when: has_menu, accept: minus, send: Page_Up }
-
-</code></pre>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#65737e;"># luna_pinyin.extended.yaml 
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">---
+</span><span style="color:#bf616a;">name</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">luna_pinyin.extended
+</span><span style="color:#bf616a;">version</span><span style="color:#c0c5ce;">: &quot;</span><span style="color:#a3be8c;">2015.12.02</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">sort</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">by_weight
+</span><span style="color:#bf616a;">use_preset_vocabulary</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">true
+</span><span style="color:#65737e;">#此處爲明月拼音擴充詞庫（基本）默認鏈接載入的詞庫，有朙月拼音官方詞庫、明月拼音擴充詞庫（漢語大詞典）、
+</span><span style="color:#65737e;">#明月拼音擴充詞庫（詩詞）、明月拼音擴充詞庫（含西文的詞彙）。如果不需要加載某个詞庫請將其用「#」註釋掉。
+</span><span style="color:#65737e;">#雙拼不支持 luna_pinyin.cn_en 詞庫，請用戶手動禁用。
+</span><span style="color:#bf616a;">import_tables</span><span style="color:#c0c5ce;">:
+</span><span style="color:#c0c5ce;">  - </span><span style="color:#a3be8c;">luna_pinyin
+</span><span style="color:#c0c5ce;">  - </span><span style="color:#a3be8c;">luna_pinyin.hanyu
+</span><span style="color:#c0c5ce;">  - </span><span style="color:#a3be8c;">luna_pinyin.poetry
+</span><span style="color:#c0c5ce;">  </span><span style="color:#65737e;"># - luna_pinyin.cn_en
+</span><span style="color:#c0c5ce;">...
+</span></code></pre>
+<p>雙拼用家可以將上面的個檔案的 <code>luna_pinyin.cn_en</code> 一行註釋掉。 </p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#65737e;"># double_pinyin_flypy.custom.yaml
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#bf616a;">patch</span><span style="color:#c0c5ce;">: 
+</span><span style="color:#c0c5ce;">  </span><span style="color:#65737e;"># 雙拼碼不轉換成全拼碼 
+</span><span style="color:#c0c5ce;">  &quot;</span><span style="color:#a3be8c;">translator/preedit_format</span><span style="color:#c0c5ce;">&quot;: {}
+</span><span style="color:#c0c5ce;">  </span><span style="color:#65737e;"># 載入朙月拼音擴充詞庫
+</span><span style="color:#c0c5ce;">  &quot;</span><span style="color:#a3be8c;">translator/dictionary</span><span style="color:#c0c5ce;">&quot;: </span><span style="color:#a3be8c;">luna_pinyin.extended
+</span></code></pre>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#65737e;"># default.custom.yaml 
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#bf616a;">patch</span><span style="color:#c0c5ce;">:
+</span><span style="color:#c0c5ce;">  </span><span style="color:#bf616a;">schema_list</span><span style="color:#c0c5ce;">:
+</span><span style="color:#c0c5ce;">    - </span><span style="color:#bf616a;">schema</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">double_pinyin_flypy
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">  </span><span style="color:#bf616a;">ascii_composer</span><span style="color:#c0c5ce;">:
+</span><span style="color:#c0c5ce;">    </span><span style="color:#bf616a;">switch_key</span><span style="color:#c0c5ce;">:
+</span><span style="color:#c0c5ce;">      </span><span style="color:#bf616a;">Shift_L</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">noop
+</span><span style="color:#c0c5ce;">      </span><span style="color:#bf616a;">Shift_R</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">commit_code
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">  </span><span style="color:#bf616a;">key_binder</span><span style="color:#c0c5ce;">:
+</span><span style="color:#c0c5ce;">    </span><span style="color:#bf616a;">bindings</span><span style="color:#c0c5ce;">:
+</span><span style="color:#c0c5ce;">      - { </span><span style="color:#bf616a;">when</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">has_menu</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">accept</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">Shift_L</span><span style="color:#c0c5ce;">,  </span><span style="color:#bf616a;">send</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">2 </span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">      - { </span><span style="color:#bf616a;">when</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">has_menu</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">accept</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">Control_R</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">send</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">3 </span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">      - { </span><span style="color:#bf616a;">when</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">has_menu</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">accept</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">equal</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">send</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">Page_Down </span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">      - { </span><span style="color:#bf616a;">when</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">has_menu</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">accept</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">minus</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">send</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">Page_Up </span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">
+</span></code></pre>
 <p>我討厭使用左 shift 切換中英文（因爲常常誤觸），於是把它禁用掉了，換成右 shift。<br />
-這也是我喜歡 Rime 的一大原因，它提供了大量的配置選項，你可以把它調教成你喜歡的樣子。
+這也是我喜歡 Rime 的一大原因，它提供了大量的配置選項，你可以把它調教成你喜歡的樣子。 
 我用過的大部分輸入法都不能設定成只用右 shift 切換中英文。<br />
 另外，我將左 shift、右 ctrl 分別設定成上屏第二、三個候選詞，較爲方便。
 未來可能把結合輔碼，將每頁候選詞減少到三個。</p>
 <h1>For Vim User</h1>
 <p>這篇網誌是在 Vim 中完成的，我抄了下面的一段程式碼到我的 Vim 配置裡。它實現了進入普通模式自動切換成無輸入法的狀態，而在插入模式保持著上一次進入普通模式前的狀態。</p>
-<pre><code class="language-Vim">&quot;##### auto fcitx  ###########
-let g:input_toggle = 0
-function! Fcitx2en()
-   let s:input_status = system(&quot;fcitx-remote&quot;)
-   if s:input_status == 2
-      let g:input_toggle = 1
-      let l:a = system(&quot;fcitx-remote -c&quot;)
-   endif
-endfunction
-
-function! Fcitx2zh()
-   let s:input_status = system(&quot;fcitx-remote&quot;)
-   if s:input_status != 2 &amp;&amp; g:input_toggle == 1
-      let l:a = system(&quot;fcitx-remote -o&quot;)
-      let g:input_toggle = 0
-   endif
-endfunction
-
-set ttimeoutlen=150
-&quot;退出插入模式
-autocmd InsertLeave * call Fcitx2en()
-&quot;進入插入模式
-autocmd InsertEnter * call Fcitx2zh()
-&quot;##### auto fcitx end ######
-</code></pre>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">&quot;##### auto fcitx  ###########
+</span><span style="color:#c0c5ce;">let g:input_toggle = 0
+</span><span style="color:#c0c5ce;">function! Fcitx2en()
+</span><span style="color:#c0c5ce;">   let s:input_status = system(&quot;fcitx-remote&quot;)
+</span><span style="color:#c0c5ce;">   if s:input_status == 2
+</span><span style="color:#c0c5ce;">      let g:input_toggle = 1
+</span><span style="color:#c0c5ce;">      let l:a = system(&quot;fcitx-remote -c&quot;)
+</span><span style="color:#c0c5ce;">   endif
+</span><span style="color:#c0c5ce;">endfunction
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">function! Fcitx2zh()
+</span><span style="color:#c0c5ce;">   let s:input_status = system(&quot;fcitx-remote&quot;)
+</span><span style="color:#c0c5ce;">   if s:input_status != 2 &amp;&amp; g:input_toggle == 1
+</span><span style="color:#c0c5ce;">      let l:a = system(&quot;fcitx-remote -o&quot;)
+</span><span style="color:#c0c5ce;">      let g:input_toggle = 0
+</span><span style="color:#c0c5ce;">   endif
+</span><span style="color:#c0c5ce;">endfunction
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">set ttimeoutlen=150
+</span><span style="color:#c0c5ce;">&quot;退出插入模式
+</span><span style="color:#c0c5ce;">autocmd InsertLeave * call Fcitx2en()
+</span><span style="color:#c0c5ce;">&quot;進入插入模式
+</span><span style="color:#c0c5ce;">autocmd InsertEnter * call Fcitx2zh()
+</span><span style="color:#c0c5ce;">&quot;##### auto fcitx end ######
+</span></code></pre>
 
     </article>
   </main>
