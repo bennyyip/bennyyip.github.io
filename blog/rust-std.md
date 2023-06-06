@@ -1,5 +1,6 @@
+---
 title: "Rust 标准库阅读笔记"
-published_date: "2018-03-9 10:03:47 +0800"
+published_date: "2018-03-09 10:03:47 +0800"
 layout: post.liquid
 is_draft: true
 data:

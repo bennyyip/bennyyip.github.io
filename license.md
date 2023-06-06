@@ -1,3 +1,4 @@
+---
 permalink: /license/
 title: "bennyyip.github.io - License"
 data:

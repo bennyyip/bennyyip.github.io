@@ -1,3 +1,4 @@
+---
 title: 关于异或运算的一些 tricks
 published_date: "2016-08-19 23:02:52 +0800"
 layout: post.liquid

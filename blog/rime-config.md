@@ -1,3 +1,4 @@
+---
 title: Linux 初體驗及中州韻配置小記
 published_date: "2017-02-10 00:20:47 +0800"
 layout: post.liquid
