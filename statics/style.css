@@ -1,5 +1,7 @@
-body{
-  font: 18px "PingFang TC", "Hiragino Sans GB", "Noto Sans CJK TC", "Source Han Sans TC", "Microsoft JhengHei UI", "Microsoft JhengHei", sans-serif;
+body {
+  font: 18px 'PingFang TC', 'Hiragino Sans GB', 'Noto Sans CJK TC',
+    'Source Han Sans TC', 'Microsoft JhengHei UI', 'Microsoft JhengHei',
+    sans-serif;
 }
 
 html,
@@ -12,21 +14,30 @@ img {
   max-width: 100%;
 }
 
-.hljs {
-  background-color: #fff;
-  font: .85rem "Source Code Pro", "Consolas", Menlo, Monaco, "Courier New", monospace;
-  border: 1px solid #7a7a7a;
+tt,
+code,
+samp {
+  font-family: 'Sarasa Mono CL', ui-monospace, SFMono-Regular, SF Mono, Menlo,
+    Consolas, Liberation Mono, monospace;
 }
 
 pre {
-  overflow-x: auto;
-  display: block;
-  padding: 0.5em;
+  padding: 16px;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  color: rgb(31, 35, 40);
+  background-color: rgb(246, 248, 250) !important;
+  border-radius: 6px;
 }
 
 p code {
-  background-color: #fff;
-  border: 1px dotted #7a7a7a;
+  padding: 0.2em 0.4em;
+  margin: 0;
+  font-size: 85%;
+  white-space: break-spaces;
+  background-color: rgba(175, 184, 193, 0.2);
+  border-radius: 6px;
 }
 
 p {
@@ -80,7 +91,7 @@ main {
   min-height: 600px;
 }
 
-body[data-route=about] p {
+body[data-route='about'] p {
   padding: 5px 0;
   max-width: 600px;
 }
@@ -115,7 +126,7 @@ article a:visited {
   color: #000;
 }
 
-article a:hover{
+article a:hover {
   text-decoration: none;
 }
 
@@ -127,7 +138,8 @@ footer {
   margin: 0 0 40px;
 }
 
-footer a, footer a:visited {
+footer a,
+footer a:visited {
   color: grey;
 }
 
@@ -136,13 +148,33 @@ hr {
   max-width: 900px;
   height: 1px;
   border: 0;
-  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.16), rgba(0, 0, 0, 0));
-  background-image: -moz-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.16), rgba(0, 0, 0, 0));
-  background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.16), rgba(0, 0, 0, 0));
-  background-image: linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.16), rgba(0, 0, 0, 0));
+  background-image: -webkit-linear-gradient(
+    left,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0.16),
+    rgba(0, 0, 0, 0)
+  );
+  background-image: -moz-linear-gradient(
+    left,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0.16),
+    rgba(0, 0, 0, 0)
+  );
+  background-image: -o-linear-gradient(
+    left,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0.16),
+    rgba(0, 0, 0, 0)
+  );
+  background-image: linear-gradient(
+    left,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0.16),
+    rgba(0, 0, 0, 0)
+  );
 }
 
-@media all and (max-width:1024px) {
+@media all and (max-width: 1024px) {
   main {
     padding: 25px 40px;
   }
@@ -169,7 +201,7 @@ hr {
   }
 }
 
-@media all and (max-width:768px) {
+@media all and (max-width: 768px) {
   h1 {
     font-size: 40px;
   }
@@ -178,7 +210,7 @@ hr {
   }
 }
 
-@media all and (max-width:390px) {
+@media all and (max-width: 390px) {
   header {
     margin-top: 10px;
     height: 50px;
@@ -201,7 +233,7 @@ hr {
   visibility: hidden;
   display: block;
   font-size: 0;
-  content: " ";
+  content: ' ';
   clear: both;
   height: 0;
 }
@@ -209,7 +241,6 @@ hr {
 .clearfix {
   display: inline-block;
 }
-
 
 /* start commented backslash hack \*/
 
@@ -223,8 +254,6 @@ hr {
 
 /* close commented backslash hack */
 
-
 blockquote {
   font-style: italic;
 }
-
