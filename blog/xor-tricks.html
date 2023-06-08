@@ -16,27 +16,19 @@
   type="application/rss+xml"
   title="RSS" />
 <link href="https://mastodon.social/@bennyyip" rel="me">
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js"></script>
 
-<link rel="shortcut icon"
+<link
+rel="shortcut icon"
   sizes="32x32"
   href="favicon.ico">
 
 
 <script>
-  (function(u, c) {
-    var d = document,
-      t = 'script',
-      o = d.createElement(t),
-      s = d.getElementsByTagName(t)[0];
-    o.src = u;
-    if (c) {
-      o.addEventListener('load', function(e) {
-        c(e);
-      });
-    }
-    s.parentNode.insertBefore(o, s);
-  })('//cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js', function() {
-    pangu.spacingPage();
+  document.addEventListener('DOMContentLoaded', () => {
+
+// listen to any DOM change and automatically perform spacing via MutationObserver()
+    pangu.autoSpacingPage();
   });
 </script>
 
