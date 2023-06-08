@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width">
 <title>试水 Elixir</title>
 <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-<link rel="stylesheet" href="/statics/highlight/github.css" type="text/css" media="all" />
 <link rel="stylesheet" href="/statics/style.css" type="text/css" media="all" />
 <link rel="alternate" href="/rss.xml" type="application/rss+xml" title="RSS" />
 <link href="https://mastodon.social/@bennyyip" rel="me">
@@ -25,9 +24,6 @@
   pangu.spacingPage();
 });
 </script>
-
-<script src="/statics/highlight.pack.js"></script>
-<script type="text/javascript">hljs.initHighlightingOnLoad();</script>
 
   </head>
 <body data-route=blog>
@@ -53,8 +49,8 @@
 <h1>Why Elixir Rocks</h1>
 <h3>Macro x Metaprogramming x DSL</h3>
 <p>讲 macro 之前先讲讲 AST。Elixir 的 AST 非常简单，要么是 literals（Atom, String, List, Number, Tuple with 2 element），要么是这样的 <code>tuple</code>：</p>
-<pre style="background-color:#2b303b;">
-<code><span style="color:#c0c5ce;">{atom | tuple, list, list | atom}
+<pre style="background-color:#ffffff;">
+<code><span style="color:#323232;">{atom </span><span style="font-weight:bold;color:#a71d5d;">| </span><span style="color:#323232;">tuple, list, list </span><span style="font-weight:bold;color:#a71d5d;">| </span><span style="color:#323232;">atom}
 </span></code></pre>
 <ul>
 <li>第一部分是 <code>atom</code> 或者另外一个这样的 <code>tuple</code></li>
@@ -65,119 +61,119 @@
 所谓 macro 就是接受 AST 返回 AST 的函数，这样形式简单的 AST 给 macro 的编写带来了方便。
 Elixir 只有少数几个 <a href="https://hexdocs.pm/elixir/Kernel.SpecialForms.html">Sepcial Forms</a>, 表面那些像 Ruby 的语法基本上都是用 macro 造出来的，这一点很像 Lisp。
 <code>if/else</code> 是宏，<code>defstruct</code> 是宏，<code>|&gt;</code> 管道运算符也是一个宏，它用起来是这样的：</p>
-<pre style="background-color:#2b303b;">
-<code><span style="color:#c0c5ce;"># without |&gt;
-</span><span style="color:#c0c5ce;">foo(bar(baz, meow))
-</span><span style="color:#c0c5ce;"># with |&gt;
-</span><span style="color:#c0c5ce;">baz |&gt; bar(meow) |&gt; foo
+<pre style="background-color:#ffffff;">
+<code><span style="font-style:italic;color:#969896;"># without |&gt;
+</span><span style="color:#323232;">foo(bar(baz, meow))
+</span><span style="font-style:italic;color:#969896;"># with |&gt;
+</span><span style="color:#323232;">baz </span><span style="font-weight:bold;color:#a71d5d;">|&gt; </span><span style="color:#323232;">bar(meow) </span><span style="font-weight:bold;color:#a71d5d;">|&gt; </span><span style="color:#323232;">foo
 </span></code></pre>
 <p>而所谓 metaprogramming 就是写生成代码的代码。macro 提供了把代码当数据处理的能力，于是乎可以用来做元编程。</p>
 <p>元编程可以用来在语言里造 <a href="https://en.wikipedia.org/wiki/Domain-specific_language">Domain-specific languages (DSL)</a> 来生成 boilerplate 代码，于是就可以写出这样的代码：</p>
-<pre style="background-color:#2b303b;">
-<code><span style="color:#c0c5ce;"># Imports only from/2 of Ecto.Query
-</span><span style="color:#c0c5ce;">import Ecto.Query, only: [from: 2]
-</span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;"># Create a query
-</span><span style="color:#c0c5ce;">query = from u in &quot;users&quot;,
-</span><span style="color:#c0c5ce;">          where: u.age &gt; 18,
-</span><span style="color:#c0c5ce;">          select: u.name
-</span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;"># Send the query to the repository
-</span><span style="color:#c0c5ce;">Repo.all(query)
+<pre style="background-color:#ffffff;">
+<code><span style="font-style:italic;color:#969896;"># Imports only from/2 of Ecto.Query
+</span><span style="font-weight:bold;color:#a71d5d;">import </span><span style="color:#0086b3;">Ecto</span><span style="color:#323232;">.</span><span style="color:#0086b3;">Query</span><span style="color:#323232;">, </span><span style="color:#0086b3;">only: </span><span style="color:#323232;">[</span><span style="color:#0086b3;">from: 2</span><span style="color:#323232;">]
+</span><span style="color:#323232;">
+</span><span style="font-style:italic;color:#969896;"># Create a query
+</span><span style="color:#323232;">query </span><span style="font-weight:bold;color:#a71d5d;">= </span><span style="color:#323232;">from u </span><span style="font-weight:bold;color:#a71d5d;">in </span><span style="color:#183691;">&quot;users&quot;</span><span style="color:#323232;">,
+</span><span style="color:#323232;">          </span><span style="color:#0086b3;">where: </span><span style="color:#323232;">u.age </span><span style="font-weight:bold;color:#a71d5d;">&gt; </span><span style="color:#0086b3;">18</span><span style="color:#323232;">,
+</span><span style="color:#323232;">          </span><span style="color:#0086b3;">select: </span><span style="color:#323232;">u.name
+</span><span style="color:#323232;">
+</span><span style="font-style:italic;color:#969896;"># Send the query to the repository
+</span><span style="color:#0086b3;">Repo</span><span style="color:#323232;">.all(query)
 </span></code></pre>
 <p>ecto 是用来操作数据库的库，它提供了类似 SQL 的 DSL。<code>query</code> 通过宏展开最后变成了一个 Elixir 的函数。</p>
 <p>另外 Elixir 的 macro 是 hygienic 的，不像 C 的基于字符替换的宏，会污染调用方的 namespace。但是它也提供了 var! 来打破这个 hygiene，从而往调用方的塞变量。</p>
 <h3>Pattern Matching</h3>
 <p>Elixir 到处都是 pattern matching，实际上 <code>=</code> 是 match 操作符。Rust 里面同样有 pattern matching，但是功能不如 Elixir 的强大。 在 Rust 里我们通常用它来 match enum(tagged union)，<code>std::Result</code>就是一个好例子。</p>
 <p>Elixr 这边还能 match 很多 Rust 不能 match 的类型，比如 list（Rust 的 slice pattern 还是 experimental)：</p>
-<pre style="background-color:#2b303b;">
-<code><span style="color:#c0c5ce;">iex&gt; [head | tail] = [1, 2, 3]
-</span><span style="color:#c0c5ce;">[1, 2, 3]
-</span><span style="color:#c0c5ce;">iex&gt; head
-</span><span style="color:#c0c5ce;">1
-</span><span style="color:#c0c5ce;">iex&gt; tail
-</span><span style="color:#c0c5ce;">[2, 3]
+<pre style="background-color:#ffffff;">
+<code><span style="color:#323232;">iex</span><span style="font-weight:bold;color:#a71d5d;">&gt; </span><span style="color:#323232;">[head </span><span style="font-weight:bold;color:#a71d5d;">| </span><span style="color:#323232;">tail] </span><span style="font-weight:bold;color:#a71d5d;">= </span><span style="color:#323232;">[</span><span style="color:#0086b3;">1</span><span style="color:#323232;">, </span><span style="color:#0086b3;">2</span><span style="color:#323232;">, </span><span style="color:#0086b3;">3</span><span style="color:#323232;">]
+</span><span style="color:#323232;">[</span><span style="color:#0086b3;">1</span><span style="color:#323232;">, </span><span style="color:#0086b3;">2</span><span style="color:#323232;">, </span><span style="color:#0086b3;">3</span><span style="color:#323232;">]
+</span><span style="color:#323232;">iex</span><span style="font-weight:bold;color:#a71d5d;">&gt; </span><span style="color:#323232;">head
+</span><span style="color:#0086b3;">1
+</span><span style="color:#323232;">iex</span><span style="font-weight:bold;color:#a71d5d;">&gt; </span><span style="color:#323232;">tail
+</span><span style="color:#323232;">[</span><span style="color:#0086b3;">2</span><span style="color:#323232;">, </span><span style="color:#0086b3;">3</span><span style="color:#323232;">]
 </span></code></pre>
 <p>比如字符串：</p>
-<pre style="background-color:#2b303b;">
-<code><span style="color:#c0c5ce;">iex&gt; &quot;he&quot; &lt;&gt; rest = &quot;hello&quot;
-</span><span style="color:#c0c5ce;">&quot;hello&quot;
-</span><span style="color:#c0c5ce;">iex&gt; rest
-</span><span style="color:#c0c5ce;">&quot;llo&quot;
+<pre style="background-color:#ffffff;">
+<code><span style="color:#323232;">iex</span><span style="font-weight:bold;color:#a71d5d;">&gt; </span><span style="color:#183691;">&quot;he&quot; </span><span style="font-weight:bold;color:#a71d5d;">&lt;&gt; </span><span style="color:#323232;">rest </span><span style="font-weight:bold;color:#a71d5d;">= </span><span style="color:#183691;">&quot;hello&quot;
+</span><span style="color:#183691;">&quot;hello&quot;
+</span><span style="color:#323232;">iex</span><span style="font-weight:bold;color:#a71d5d;">&gt; </span><span style="color:#323232;">rest
+</span><span style="color:#183691;">&quot;llo&quot;
 </span></code></pre>
 <p>这个其实有局限性，只有最后一部分可以是变量。
 比如 map:</p>
-<pre style="background-color:#2b303b;">
-<code><span style="color:#c0c5ce;">iex&gt; %{} = %{:a =&gt; 1, 2 =&gt; :b}
-</span><span style="color:#c0c5ce;">%{2 =&gt; :b, :a =&gt; 1}
-</span><span style="color:#c0c5ce;">iex&gt; %{:a =&gt; a} = %{:a =&gt; 1, 2 =&gt; :b}
-</span><span style="color:#c0c5ce;">%{2 =&gt; :b, :a =&gt; 1}
-</span><span style="color:#c0c5ce;">iex&gt; a
-</span><span style="color:#c0c5ce;">1
-</span><span style="color:#c0c5ce;">iex&gt; %{:c =&gt; c} = %{:a =&gt; 1, 2 =&gt; :b}
-</span><span style="color:#c0c5ce;">** (MatchError) no match of right hand side value: %{2 =&gt; :b, :a =&gt; 1}
+<pre style="background-color:#ffffff;">
+<code><span style="color:#323232;">iex</span><span style="font-weight:bold;color:#a71d5d;">&gt; </span><span style="color:#323232;">%{} </span><span style="font-weight:bold;color:#a71d5d;">= </span><span style="color:#323232;">%{</span><span style="color:#0086b3;">:a </span><span style="font-weight:bold;color:#a71d5d;">=&gt; </span><span style="color:#0086b3;">1</span><span style="color:#323232;">, </span><span style="color:#0086b3;">2 </span><span style="font-weight:bold;color:#a71d5d;">=&gt; </span><span style="color:#0086b3;">:b</span><span style="color:#323232;">}
+</span><span style="color:#323232;">%{</span><span style="color:#0086b3;">2 </span><span style="font-weight:bold;color:#a71d5d;">=&gt; </span><span style="color:#0086b3;">:b</span><span style="color:#323232;">, </span><span style="color:#0086b3;">:a </span><span style="font-weight:bold;color:#a71d5d;">=&gt; </span><span style="color:#0086b3;">1</span><span style="color:#323232;">}
+</span><span style="color:#323232;">iex</span><span style="font-weight:bold;color:#a71d5d;">&gt; </span><span style="color:#323232;">%{</span><span style="color:#0086b3;">:a </span><span style="font-weight:bold;color:#a71d5d;">=&gt; </span><span style="color:#323232;">a} </span><span style="font-weight:bold;color:#a71d5d;">= </span><span style="color:#323232;">%{</span><span style="color:#0086b3;">:a </span><span style="font-weight:bold;color:#a71d5d;">=&gt; </span><span style="color:#0086b3;">1</span><span style="color:#323232;">, </span><span style="color:#0086b3;">2 </span><span style="font-weight:bold;color:#a71d5d;">=&gt; </span><span style="color:#0086b3;">:b</span><span style="color:#323232;">}
+</span><span style="color:#323232;">%{</span><span style="color:#0086b3;">2 </span><span style="font-weight:bold;color:#a71d5d;">=&gt; </span><span style="color:#0086b3;">:b</span><span style="color:#323232;">, </span><span style="color:#0086b3;">:a </span><span style="font-weight:bold;color:#a71d5d;">=&gt; </span><span style="color:#0086b3;">1</span><span style="color:#323232;">}
+</span><span style="color:#323232;">iex</span><span style="font-weight:bold;color:#a71d5d;">&gt; </span><span style="color:#323232;">a
+</span><span style="color:#0086b3;">1
+</span><span style="color:#323232;">iex</span><span style="font-weight:bold;color:#a71d5d;">&gt; </span><span style="color:#323232;">%{</span><span style="color:#0086b3;">:c </span><span style="font-weight:bold;color:#a71d5d;">=&gt; </span><span style="color:#323232;">c} </span><span style="font-weight:bold;color:#a71d5d;">= </span><span style="color:#323232;">%{</span><span style="color:#0086b3;">:a </span><span style="font-weight:bold;color:#a71d5d;">=&gt; </span><span style="color:#0086b3;">1</span><span style="color:#323232;">, </span><span style="color:#0086b3;">2 </span><span style="font-weight:bold;color:#a71d5d;">=&gt; </span><span style="color:#0086b3;">:b</span><span style="color:#323232;">}
+</span><span style="font-weight:bold;color:#a71d5d;">** </span><span style="color:#323232;">(</span><span style="color:#0086b3;">MatchError</span><span style="color:#323232;">) no match of right hand side </span><span style="color:#0086b3;">value: </span><span style="color:#323232;">%{</span><span style="color:#0086b3;">2 </span><span style="font-weight:bold;color:#a71d5d;">=&gt; </span><span style="color:#0086b3;">:b</span><span style="color:#323232;">, </span><span style="color:#0086b3;">:a </span><span style="font-weight:bold;color:#a71d5d;">=&gt; </span><span style="color:#0086b3;">1</span><span style="color:#323232;">}
 </span></code></pre>
 <p>我学 Elixir 的时候用它做了个 telegram bot。用户发来的消息是这样格式的：</p>
-<pre style="background-color:#2b303b;">
-<code><span style="color:#c0c5ce;">/command [optional data]
-</span><span style="color:#c0c5ce;">or
-</span><span style="color:#c0c5ce;">/command@bot_name [optional data]
+<pre style="background-color:#ffffff;">
+<code><span style="color:#323232;">/command [optional data]
+</span><span style="color:#323232;">or
+</span><span style="color:#323232;">/command@bot_name [optional data]
 </span></code></pre>
 <p>这里就需要把不同的消息 route 到不同的 handler。在别的语言大概是需要维护一个 hash table，把 pattern 和 handler 注册进去，收到消息就对着 hash table 一项一项地 match。而我用的库很巧妙地利用 pattern matching 解决了这个问题：</p>
-<pre style="background-color:#2b303b;">
-<code><span style="color:#c0c5ce;">  defp generate_command(command, handler) do
-</span><span style="color:#c0c5ce;">    quote do
-</span><span style="color:#c0c5ce;">      def do_match_message(
-</span><span style="color:#c0c5ce;">            %{
-</span><span style="color:#c0c5ce;">              message: %{
-</span><span style="color:#c0c5ce;">                text: &quot;/&quot; &lt;&gt; unquote(command)
-</span><span style="color:#c0c5ce;">              }
-</span><span style="color:#c0c5ce;">            } = var!(update)
-</span><span style="color:#c0c5ce;">          ) do
-</span><span style="color:#c0c5ce;">        handle_message(unquote(handler), [var!(update)])
-</span><span style="color:#c0c5ce;">      end
-</span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">      def do_match_message(
-</span><span style="color:#c0c5ce;">            %{
-</span><span style="color:#c0c5ce;">              message: %{
-</span><span style="color:#c0c5ce;">                text: &quot;/&quot; &lt;&gt; unquote(command) &lt;&gt; &quot; &quot; &lt;&gt; _
-</span><span style="color:#c0c5ce;">              }
-</span><span style="color:#c0c5ce;">            } = var!(update)
-</span><span style="color:#c0c5ce;">          ) do
-</span><span style="color:#c0c5ce;">        handle_message(unquote(handler), [var!(update)])
-</span><span style="color:#c0c5ce;">      end
-</span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">      def do_match_message(
-</span><span style="color:#c0c5ce;">            %{
-</span><span style="color:#c0c5ce;">              message: %{
-</span><span style="color:#c0c5ce;">                text: &quot;/&quot; &lt;&gt; unquote(command) &lt;&gt; &quot;@&quot; &lt;&gt; unquote(@bot_name)
-</span><span style="color:#c0c5ce;">              }
-</span><span style="color:#c0c5ce;">            } = var!(update)
-</span><span style="color:#c0c5ce;">          ) do
-</span><span style="color:#c0c5ce;">        handle_message(unquote(handler), [var!(update)])
-</span><span style="color:#c0c5ce;">      end
-</span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">      def do_match_message(
-</span><span style="color:#c0c5ce;">            %{
-</span><span style="color:#c0c5ce;">              message: %{
-</span><span style="color:#c0c5ce;">                text: &quot;/&quot; &lt;&gt; unquote(command) &lt;&gt; &quot;@&quot; &lt;&gt; unquote(@bot_name) &lt;&gt; &quot; &quot; &lt;&gt; _
-</span><span style="color:#c0c5ce;">              }
-</span><span style="color:#c0c5ce;">            } = var!(update)
-</span><span style="color:#c0c5ce;">          ) do
-</span><span style="color:#c0c5ce;">        handle_message(unquote(handler), [var!(update)])
-</span><span style="color:#c0c5ce;">      end
-</span><span style="color:#c0c5ce;">    end
-</span><span style="color:#c0c5ce;">  end
+<pre style="background-color:#ffffff;">
+<code><span style="color:#323232;">  </span><span style="font-weight:bold;color:#a71d5d;">defp </span><span style="font-weight:bold;color:#795da3;">generate_command</span><span style="color:#323232;">(command, handler) </span><span style="font-weight:bold;color:#a71d5d;">do
+</span><span style="color:#323232;">    </span><span style="font-weight:bold;color:#a71d5d;">quote do
+</span><span style="color:#323232;">      </span><span style="font-weight:bold;color:#a71d5d;">def </span><span style="font-weight:bold;color:#795da3;">do_match_message</span><span style="color:#323232;">(
+</span><span style="color:#323232;">            %{
+</span><span style="color:#323232;">              </span><span style="color:#0086b3;">message: </span><span style="color:#323232;">%{
+</span><span style="color:#323232;">                </span><span style="color:#0086b3;">text: </span><span style="color:#183691;">&quot;/&quot; </span><span style="font-weight:bold;color:#a71d5d;">&lt;&gt; unquote</span><span style="color:#323232;">(command)
+</span><span style="color:#323232;">              }
+</span><span style="color:#323232;">            } </span><span style="font-weight:bold;color:#a71d5d;">= </span><span style="color:#323232;">var!(update)
+</span><span style="color:#323232;">          ) </span><span style="font-weight:bold;color:#a71d5d;">do
+</span><span style="color:#323232;">        handle_message(</span><span style="font-weight:bold;color:#a71d5d;">unquote</span><span style="color:#323232;">(handler), [var!(update)])
+</span><span style="color:#323232;">      </span><span style="font-weight:bold;color:#a71d5d;">end
+</span><span style="color:#323232;">
+</span><span style="color:#323232;">      </span><span style="font-weight:bold;color:#a71d5d;">def </span><span style="font-weight:bold;color:#795da3;">do_match_message</span><span style="color:#323232;">(
+</span><span style="color:#323232;">            %{
+</span><span style="color:#323232;">              </span><span style="color:#0086b3;">message: </span><span style="color:#323232;">%{
+</span><span style="color:#323232;">                </span><span style="color:#0086b3;">text: </span><span style="color:#183691;">&quot;/&quot; </span><span style="font-weight:bold;color:#a71d5d;">&lt;&gt; unquote</span><span style="color:#323232;">(command) </span><span style="font-weight:bold;color:#a71d5d;">&lt;&gt; </span><span style="color:#183691;">&quot; &quot; </span><span style="font-weight:bold;color:#a71d5d;">&lt;&gt; </span><span style="color:#323232;">_
+</span><span style="color:#323232;">              }
+</span><span style="color:#323232;">            } </span><span style="font-weight:bold;color:#a71d5d;">= </span><span style="color:#323232;">var!(update)
+</span><span style="color:#323232;">          ) </span><span style="font-weight:bold;color:#a71d5d;">do
+</span><span style="color:#323232;">        handle_message(</span><span style="font-weight:bold;color:#a71d5d;">unquote</span><span style="color:#323232;">(handler), [var!(update)])
+</span><span style="color:#323232;">      </span><span style="font-weight:bold;color:#a71d5d;">end
+</span><span style="color:#323232;">
+</span><span style="color:#323232;">      </span><span style="font-weight:bold;color:#a71d5d;">def </span><span style="font-weight:bold;color:#795da3;">do_match_message</span><span style="color:#323232;">(
+</span><span style="color:#323232;">            %{
+</span><span style="color:#323232;">              </span><span style="color:#0086b3;">message: </span><span style="color:#323232;">%{
+</span><span style="color:#323232;">                </span><span style="color:#0086b3;">text: </span><span style="color:#183691;">&quot;/&quot; </span><span style="font-weight:bold;color:#a71d5d;">&lt;&gt; unquote</span><span style="color:#323232;">(command) </span><span style="font-weight:bold;color:#a71d5d;">&lt;&gt; </span><span style="color:#183691;">&quot;@&quot; </span><span style="font-weight:bold;color:#a71d5d;">&lt;&gt; unquote</span><span style="color:#323232;">(</span><span style="font-weight:bold;color:#a71d5d;">@</span><span style="color:#0086b3;">bot_name</span><span style="color:#323232;">)
+</span><span style="color:#323232;">              }
+</span><span style="color:#323232;">            } </span><span style="font-weight:bold;color:#a71d5d;">= </span><span style="color:#323232;">var!(update)
+</span><span style="color:#323232;">          ) </span><span style="font-weight:bold;color:#a71d5d;">do
+</span><span style="color:#323232;">        handle_message(</span><span style="font-weight:bold;color:#a71d5d;">unquote</span><span style="color:#323232;">(handler), [var!(update)])
+</span><span style="color:#323232;">      </span><span style="font-weight:bold;color:#a71d5d;">end
+</span><span style="color:#323232;">
+</span><span style="color:#323232;">      </span><span style="font-weight:bold;color:#a71d5d;">def </span><span style="font-weight:bold;color:#795da3;">do_match_message</span><span style="color:#323232;">(
+</span><span style="color:#323232;">            %{
+</span><span style="color:#323232;">              </span><span style="color:#0086b3;">message: </span><span style="color:#323232;">%{
+</span><span style="color:#323232;">                </span><span style="color:#0086b3;">text: </span><span style="color:#183691;">&quot;/&quot; </span><span style="font-weight:bold;color:#a71d5d;">&lt;&gt; unquote</span><span style="color:#323232;">(command) </span><span style="font-weight:bold;color:#a71d5d;">&lt;&gt; </span><span style="color:#183691;">&quot;@&quot; </span><span style="font-weight:bold;color:#a71d5d;">&lt;&gt; unquote</span><span style="color:#323232;">(</span><span style="font-weight:bold;color:#a71d5d;">@</span><span style="color:#0086b3;">bot_name</span><span style="color:#323232;">) </span><span style="font-weight:bold;color:#a71d5d;">&lt;&gt; </span><span style="color:#183691;">&quot; &quot; </span><span style="font-weight:bold;color:#a71d5d;">&lt;&gt; </span><span style="color:#323232;">_
+</span><span style="color:#323232;">              }
+</span><span style="color:#323232;">            } </span><span style="font-weight:bold;color:#a71d5d;">= </span><span style="color:#323232;">var!(update)
+</span><span style="color:#323232;">          ) </span><span style="font-weight:bold;color:#a71d5d;">do
+</span><span style="color:#323232;">        handle_message(</span><span style="font-weight:bold;color:#a71d5d;">unquote</span><span style="color:#323232;">(handler), [var!(update)])
+</span><span style="color:#323232;">      </span><span style="font-weight:bold;color:#a71d5d;">end
+</span><span style="color:#323232;">    </span><span style="font-weight:bold;color:#a71d5d;">end
+</span><span style="color:#323232;">  </span><span style="font-weight:bold;color:#a71d5d;">end
 </span></code></pre>
 <p>上面是 <code>Router</code> 核心的代码，<code>Poller</code> 收到消息就调用 <code>do_match_message</code> 对其进行处理。
 这个库把用户提供的 <code>command</code> 和 <code>bot_name</code> 来重载 <code>do_match_message</code> 函数，对 <code>update</code> 做 pattern matching，从而把消息 route 到相应的 handler。
 用 macro 包装一下，用户需要写的代码就成了这样，减少了大量 boilerplate ：</p>
-<pre style="background-color:#2b303b;">
-<code><span style="color:#c0c5ce;">  command [&quot;hello&quot;, &quot;hi&quot;] do
-</span><span style="color:#c0c5ce;">    Logger.log :info, &quot;Command /hello or /hi&quot;
-</span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">    send_message &quot;Hello World!&quot;
-</span><span style="color:#c0c5ce;">end
+<pre style="background-color:#ffffff;">
+<code><span style="color:#323232;">  command [</span><span style="color:#183691;">&quot;hello&quot;</span><span style="color:#323232;">, </span><span style="color:#183691;">&quot;hi&quot;</span><span style="color:#323232;">] </span><span style="font-weight:bold;color:#a71d5d;">do
+</span><span style="color:#323232;">    </span><span style="color:#0086b3;">Logger</span><span style="color:#323232;">.log </span><span style="color:#0086b3;">:info</span><span style="color:#323232;">, </span><span style="color:#183691;">&quot;Command /hello or /hi&quot;
+</span><span style="color:#323232;">
+</span><span style="color:#323232;">    send_message </span><span style="color:#183691;">&quot;Hello World!&quot;
+</span><span style="font-weight:bold;color:#a71d5d;">end
 </span></code></pre>
 <h3>Erlang/OTP</h3>
 <p>Elixir 是 Erlang VM 上的语言，自然是要跟 OTP 打交道的。但是 OTP 是什么？</p>
@@ -192,35 +188,35 @@ Elixir 只有少数几个 <a href="https://hexdocs.pm/elixir/Kernel.SpecialForms
 <p>P.S. 我蛮喜欢 mix 这个名字，因为 Elixir 是炼金术术语，意思是万能药。这个语境下，mix 像是混合试剂的意思。</p>
 <h1>开发环境配置</h1>
 <h3>安装编译器以及文档：</h3>
-<pre style="background-color:#2b303b;">
-<code><span style="color:#8fa1b3;">pacman</span><span style="color:#bf616a;"> -S</span><span style="color:#c0c5ce;"> elixir elixir-docs
+<pre style="background-color:#ffffff;">
+<code><span style="color:#323232;">pacman -S elixir elixir-docs
 </span></code></pre>
 <p><code>elixir</code> 主要包含了编译器 ( <code>elixirc</code> ), REPL( <code>iex</code> ) 以及构建工具 ( <code>mix</code> ).
 <code>elixir-docs</code> 在<code>archlinuxcn</code>源里（我打的包），包含了 Elixir 自带的库以及工具链的文档。
 第三方库可以到 <a href="https://hexdocs.pm">hexdocs</a> 查，或者用</p>
-<pre style="background-color:#2b303b;">
-<code><span style="color:#8fa1b3;">mix</span><span style="color:#c0c5ce;"> hex.doc open PACKAGE </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">VERSION</span><span style="color:#b48ead;">]
+<pre style="background-color:#ffffff;">
+<code><span style="color:#323232;">mix hex.doc open PACKAGE </span><span style="font-weight:bold;color:#a71d5d;">[</span><span style="color:#323232;">VERSION</span><span style="font-weight:bold;color:#a71d5d;">]
 </span></code></pre>
 <h3>装 Vim 插件：</h3>
-<pre style="background-color:#2b303b;">
-<code><span style="color:#c0c5ce;">Plug &#39;elixir-editors/vim-elixir&#39;                    &quot;语法高亮，缩进规则
-</span><span style="color:#c0c5ce;">Plug &#39;mhinz/vim-mix-format&#39;, { &#39;for&#39;: &#39;elixir&#39; }    &quot;格式化代码，需要 elixir1.6
-</span><span style="color:#c0c5ce;">Plug &#39;slashmili/alchemist.vim&#39;, { &#39;for&#39;: &#39;elixir&#39; } &quot;补全及跳转
+<pre style="background-color:#ffffff;">
+<code><span style="color:#323232;">Plug </span><span style="color:#183691;">&#39;elixir-editors/vim-elixir&#39;                    </span><span style="font-style:italic;color:#969896;">&quot;语法高亮，缩进规则
+</span><span style="color:#323232;">Plug </span><span style="color:#183691;">&#39;mhinz/vim-mix-format&#39;</span><span style="color:#323232;">, { </span><span style="color:#183691;">&#39;for&#39;</span><span style="color:#323232;">: </span><span style="color:#183691;">&#39;elixir&#39;</span><span style="color:#323232;"> }    </span><span style="font-style:italic;color:#969896;">&quot;格式化代码，需要 elixir1.6
+</span><span style="color:#323232;">Plug </span><span style="color:#183691;">&#39;slashmili/alchemist.vim&#39;</span><span style="color:#323232;">, { </span><span style="color:#183691;">&#39;for&#39;</span><span style="color:#323232;">: </span><span style="color:#183691;">&#39;elixir&#39;</span><span style="color:#323232;"> } </span><span style="font-style:italic;color:#969896;">&quot;补全及跳转
 </span></code></pre>
 <p>BTW, Elixir 也有 LSP 实现（https://github.com/JakeBecker/elixir-ls）。Vim 对 LSP 的支持还不够好，用 VS Code 的话可以试试。</p>
 <h3>Linter</h3>
 <p>Elixir 可以用 <a href="https://github.com/rrrene/credo">credo</a> 做静态分析，在 mix.exs 的 deps 里加一行即可：</p>
-<pre style="background-color:#2b303b;">
-<code><span style="color:#c0c5ce;">defp deps do
-</span><span style="color:#c0c5ce;">  [
-</span><span style="color:#c0c5ce;">      {:credo, &quot;~&gt; 0.9.0-rc1&quot;, only: [:dev, :test], runtime: false}
-</span><span style="color:#c0c5ce;">  ]
-</span><span style="color:#c0c5ce;">end
+<pre style="background-color:#ffffff;">
+<code><span style="font-weight:bold;color:#a71d5d;">defp </span><span style="font-weight:bold;color:#795da3;">deps </span><span style="font-weight:bold;color:#a71d5d;">do
+</span><span style="color:#323232;">  [
+</span><span style="color:#323232;">      {</span><span style="color:#0086b3;">:credo</span><span style="color:#323232;">, </span><span style="color:#183691;">&quot;~&gt; 0.9.0-rc1&quot;</span><span style="color:#323232;">, </span><span style="color:#0086b3;">only: </span><span style="color:#323232;">[</span><span style="color:#0086b3;">:dev</span><span style="color:#323232;">, </span><span style="color:#0086b3;">:test</span><span style="color:#323232;">], </span><span style="color:#0086b3;">runtime: false</span><span style="color:#323232;">}
+</span><span style="color:#323232;">  ]
+</span><span style="font-weight:bold;color:#a71d5d;">end
 </span></code></pre>
 <h3>其它</h3>
 <p>Elixir 的包托管在 <a href="https://hex.pm">hex</a>，由于众所周知的问题，在中国大陆访问速度很慢。请心里默念「FUCK GFW」并在 <code>~/.hex/hex.config</code> 加一行代理：</p>
-<pre style="background-color:#2b303b;">
-<code><span style="color:#c0c5ce;">{http_proxy,«&quot;http://127.0.0.1:1081&quot;»}.
+<pre style="background-color:#ffffff;">
+<code><span style="color:#323232;">{http_proxy,«</span><span style="color:#183691;">&quot;http://127.0.0.1:1081&quot;</span><span style="color:#323232;">»}.
 </span></code></pre>
 <h1>总结</h1>
 <p>Elixir 背靠 Erlang/OTP，同时语言设计精良，工具链完善，适合写健壮的，scalable 的应用，值得一试。</p>
