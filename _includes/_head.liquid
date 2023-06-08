@@ -1,23 +1,38 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
 <title>{{ page.title }}</title>
-<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-<link rel="stylesheet" href="/statics/style.css" type="text/css" media="all" />
-<link rel="alternate" href="/rss.xml" type="application/rss+xml" title="RSS" />
+<link href=" https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css " rel="stylesheet">
+<link
+  rel="stylesheet"
+  href="/statics/style.css"
+  type="text/css"
+  media="all" />
+<link
+  rel="alternate"
+  href="/rss.xml"
+  type="application/rss+xml"
+  title="RSS" />
 <link href="https://mastodon.social/@bennyyip" rel="me">
 
-{% comment %} <link rel="shortcut icon" sizes="32x32" href="favicon.ico"> {% endcomment %}
-<link rel="icon" sizes="192x192" href="/favicon.png">
+<link rel="shortcut icon"
+  sizes="32x32"
+  href="favicon.ico">
 {% comment %} <link rel="icon" sizes="any" type="image/svg+xml" href="assets/icons/favicon.svg"> {% endcomment %}
 
 <script>
-(function(u, c) {
-  var d = document, t = 'script', o = d.createElement(t),
+  (function(u, c) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
       s = d.getElementsByTagName(t)[0];
-  o.src = u;
-  if (c) { o.addEventListener('load', function(e) { c(e); }); }
-  s.parentNode.insertBefore(o, s);
-})('//cdn.bootcss.com/pangu/3.3.0/pangu.min.js', function() {
-  pangu.spacingPage();
-});
+    o.src = u;
+    if (c) {
+      o.addEventListener('load', function(e) {
+        c(e);
+      });
+    }
+    s.parentNode.insertBefore(o, s);
+  })('//cdn.bootcss.com/pangu/3.3.0/pangu.min.js', function() {
+    pangu.spacingPage();
+  });
 </script>
